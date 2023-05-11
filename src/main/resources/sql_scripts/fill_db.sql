@@ -111,10 +111,10 @@ VALUES (1, 10, 'COMPOSER'),
        (16, 4, 'ACTOR');
 
 INSERT INTO users (user_name, user_birth_date, user_image, user_email, user_password, role, gender)
-VALUES ('user1', '2000-01-01', 'userImage/user1.PNG', '12345678', 'user1@gmail.com', 'USER', 'MALE'),
-       ('user2', '1999-01-01', 'userImage/user2.PNG', '11223344', 'user2@gmail.com', 'USER', 'FEMALE'),
-       ('user3', '1995-01-01', 'userImage/user3.PNG', '98765432', 'user3@gmail.com', 'USER', 'MALE'),
-       ('admin', '1990-01-01', 'userImage/admin.PNG', '99887766', 'admin@gmail.com', 'ADMIN', 'MALE');
+VALUES ('user1', '2000-01-01', 'userImage/user1.PNG', 'user1@gmail.com', '12345678', 'USER', 'MALE'),
+       ('user2', '1999-01-01', 'userImage/user2.PNG', 'user2@gmail.com', '11223344', 'USER', 'FEMALE'),
+       ('user3', '1995-01-01', 'userImage/user3.PNG', 'user3@gmail.com', '98765432', 'USER', 'MALE'),
+       ('admin', '1990-01-01', 'userImage/admin.PNG', 'admin@gmail.com', '99887766', 'ADMIN', 'MALE');
 
 INSERT INTO review (movie_id, user_id, review_text, rate)
 VALUES (1, 1, 'Nice movie.', 9),
