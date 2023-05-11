@@ -62,7 +62,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
                 <configuration>
-                    <outputDirectory>C:\Program Files\Apache Software Foundation\Tomcat 10.0\webapps</outputDirectory>
+<!--                    <outputDirectory>C:\Program Files\Apache Software Foundation\Tomcat 10.0\webapps</outputDirectory>-->
                 </configuration>
             </plugin>
         </plugins>
