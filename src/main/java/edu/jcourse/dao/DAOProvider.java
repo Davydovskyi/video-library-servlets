@@ -4,7 +4,7 @@ import edu.jcourse.dao.impl.UserDAOImpl;
 
 public class DAOProvider {
 
-    private static DAOProvider instance;
+    private static volatile DAOProvider instance;
 
     private final UserDAO userDAO;
 
