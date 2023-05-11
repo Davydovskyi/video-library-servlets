@@ -59,6 +59,7 @@ CREATE TABLE review
     review_text varchar(256) not null,
     rate        smallint     not null,
     PRIMARY KEY (review_id),
+    UNIQUE (movie_id, user_id),
     FOREIGN KEY (movie_id) REFERENCES movie (movie_id) ON DELETE RESTRICT,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE RESTRICT
 );
