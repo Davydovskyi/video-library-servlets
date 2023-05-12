@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum Gender {
-    MALE("Male"),
-    FEMALE("Female"),
-    OTHER("Other");
+    MALE("male"),
+    FEMALE("female"),
+    OTHER("other");
 
     private final String name;
 
