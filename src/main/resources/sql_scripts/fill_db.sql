@@ -114,7 +114,9 @@ INSERT INTO users (user_name, user_birth_date, user_image, user_email, user_pass
 VALUES ('user1', '2000-01-01', 'userImage/user1.PNG', 'user1@gmail.com', '12345678', 'USER', 'MALE'),
        ('user2', '1999-01-01', 'userImage/user2.PNG', 'user2@gmail.com', '11223344', 'USER', 'FEMALE'),
        ('user3', '1995-01-01', 'userImage/user3.PNG', 'user3@gmail.com', '98765432', 'USER', 'MALE'),
-       ('admin', '1990-01-01', 'userImage/admin.PNG', 'admin@gmail.com', '99887766', 'ADMIN', 'MALE');
+       ('admin', '1990-01-01', 'userImage/admin.PNG', 'admin@gmail.com', '99887766', 'ADMIN', 'MALE'),
+       ('superAdmin', '1993-12-11', 'userImage/superAdmin.PNG', 'super.admin@gmail.com', '11121993', 'SUPER_ADMIN',
+        'MALE');
 
 INSERT INTO review (movie_id, user_id, review_text, rate)
 VALUES (1, 1, 'Nice movie.', 9),
