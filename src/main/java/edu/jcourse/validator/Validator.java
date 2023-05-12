@@ -1,4 +1,4 @@
 package edu.jcourse.validator;
 
-public interface Validator {
+public interface Validator <T>{
 }

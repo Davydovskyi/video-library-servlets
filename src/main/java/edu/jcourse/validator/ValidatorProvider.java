@@ -2,7 +2,7 @@ package edu.jcourse.validator;
 
 public class ValidatorProvider {
 
-    private static volatile ValidatorProvider instance;
+    private static ValidatorProvider instance;
 
     public static ValidatorProvider getInstance() {
         if (instance != null) {

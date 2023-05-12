@@ -14,6 +14,10 @@ public class LocaleServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        String locale = req.getParameter("locale");
+        req.getSession().setAttribute("locale", locale);
+        String previousPage = req.getHeader("referer");
+        String page = previousPage != null ? previousPage : UrlPath.LOGIN;
+        resp.sendRedirect(page + "?locale=" + locale);
     }
 }

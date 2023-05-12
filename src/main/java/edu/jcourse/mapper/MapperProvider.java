@@ -2,7 +2,7 @@ package edu.jcourse.mapper;
 
 public class MapperProvider {
 
-    private static volatile MapperProvider instance;
+    private static MapperProvider instance;
 
     private MapperProvider() {
     }

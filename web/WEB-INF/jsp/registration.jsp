@@ -6,7 +6,7 @@
 <body>
 <%@include file="header.jsp" %>
 
-<%--<img src="${pageContext.request.contextPath}/images/userImage/image.PNG" alt="Welcome Image"/>--%>
+<img src="${pageContext.request.contextPath}/images/applicationImage/image.PNG" alt="Welcome Image"/>
 
 <form action="${pageContext.request.contextPath}/registration" method="post" enctype="multipart/form-data">
     <label for="userName"><fmt:message key="page.registration.name"/>
