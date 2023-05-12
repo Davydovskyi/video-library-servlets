@@ -1,10 +1,15 @@
 package edu.jcourse.service;
 
+import edu.jcourse.service.impl.UserServiceImpl;
+
 public class ServiceProvider {
 
     private static volatile ServiceProvider instance;
 
+    private final UserService userService;
+
     private ServiceProvider() {
+        userService = new UserServiceImpl();
     }
 
     public static ServiceProvider getInstance() {
@@ -18,5 +23,9 @@ public class ServiceProvider {
             }
             return instance;
         }
+    }
+
+    public UserService getUserService() {
+        return userService;
     }
 }
