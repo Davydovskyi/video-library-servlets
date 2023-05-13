@@ -1,6 +1,7 @@
 package edu.jcourse.mapper;
 
 import edu.jcourse.mapper.impl.CreateUserMapper;
+import edu.jcourse.mapper.impl.UserMapper;
 import lombok.Getter;
 
 public class MapperProvider {
@@ -8,9 +9,12 @@ public class MapperProvider {
     private static MapperProvider instance;
     @Getter
     private final CreateUserMapper createUserMapper;
+    @Getter
+    private final UserMapper userMapper;
 
     private MapperProvider() {
         createUserMapper = new CreateUserMapper();
+        userMapper = new UserMapper();
     }
 
     public static MapperProvider getInstance() {

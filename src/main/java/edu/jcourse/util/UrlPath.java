@@ -6,4 +6,5 @@ public class UrlPath {
     public static final String IMAGES = "/images";
     public static final String LOGOUT = "/logout";
     public static final String LOCALE = "/locale";
+    public static final String MOVIES = "/movies";
 }

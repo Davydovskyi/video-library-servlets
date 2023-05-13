@@ -4,7 +4,9 @@
     <title>Registration</title>
 </head>
 <body>
-<%@include file="header.jsp" %>
+<%@include file="localeHeader.jsp" %>
+<%@include file="logoutHeader.jsp" %>
+
 
 <img src="${pageContext.request.contextPath}/images/applicationImage/image.PNG" alt="Welcome Image"/>
 
@@ -32,9 +34,12 @@
         <br>
     </c:forEach>
 
-    <input type="hidden" name="role" value="USER">
+    <c:if test="${sessionScope.user == null || sessionScope.user.role().name() != 'SUPER_ADMIN'}">
+        <input type="hidden" name="role" value="USER">
+    </c:if>
 
-    <c:if test="${not empty sessionScope.user && sessionScope.user.getRole().name() == 'SUPER_ADMIN'}">
+    <c:if test="${sessionScope.user != null && sessionScope.user.role().name() == 'SUPER_ADMIN'}">
+        ${param.role = null}
         <label for="role"></label><select name="role" id="role" required>
         <c:forEach var="role" items="${requestScope.roles}">
             <option value="${role}">${role}</option>

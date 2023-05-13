@@ -1,9 +1,9 @@
 package edu.jcourse.servlet;
 
 import edu.jcourse.dto.CreateUserDTO;
+import edu.jcourse.dto.UserDTO;
 import edu.jcourse.entity.Gender;
 import edu.jcourse.entity.Role;
-import edu.jcourse.entity.User;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.exception.ValidationException;
 import edu.jcourse.service.ServiceProvider;
@@ -46,11 +46,13 @@ public class RegistrationServlet extends HttpServlet {
                 .role(req.getParameter("role"))
                 .build();
 
+        System.out.println(createUserDTO);
+
         try {
             userService.create(createUserDTO);
-            User user = (User) req.getSession().getAttribute("user");
+            UserDTO user = (UserDTO) req.getSession().getAttribute("user");
 
-            if (user != null && user.getRole() == Role.SUPER_ADMIN) {
+            if (user != null && user.role() == Role.SUPER_ADMIN) {
                 doGet(req, resp);
             } else {
                 resp.sendRedirect(UrlPath.LOGIN);
