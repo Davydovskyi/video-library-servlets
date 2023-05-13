@@ -29,6 +29,7 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("genders", Gender.values());
+        req.setAttribute("roles", Role.values());
         req.getRequestDispatcher(JSPHelper.getPath("registration"))
                 .forward(req, resp);
     }
@@ -50,9 +51,7 @@ public class RegistrationServlet extends HttpServlet {
             User user = (User) req.getSession().getAttribute("user");
 
             if (user != null && user.getRole() == Role.SUPER_ADMIN) {
-                String previousPage = req.getHeader("referer");
-                String page = previousPage != null ? previousPage : UrlPath.LOGIN;
-                resp.sendRedirect(page);
+                doGet(req, resp);
             } else {
                 resp.sendRedirect(UrlPath.LOGIN);
             }

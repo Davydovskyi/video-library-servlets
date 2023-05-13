@@ -2,12 +2,14 @@ package edu.jcourse.service;
 
 import edu.jcourse.service.impl.ImageServiceImpl;
 import edu.jcourse.service.impl.UserServiceImpl;
+import lombok.Getter;
 
 public class ServiceProvider {
 
     private static ServiceProvider instance;
-
+    @Getter
     private final UserService userService;
+    @Getter
     private final ImageService imageService;
 
     private ServiceProvider() {
@@ -26,13 +28,5 @@ public class ServiceProvider {
             }
             return instance;
         }
-    }
-
-    public UserService getUserService() {
-        return userService;
-    }
-
-    public ImageService getImageService() {
-        return imageService;
     }
 }

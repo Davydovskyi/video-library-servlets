@@ -25,15 +25,28 @@
         <input type="password" name="password" id="password" required>
     </label><br>
     <c:forEach var="gender" items="${requestScope.genders}">
-        <input type="radio" name="gender" value="${gender}" required><fmt:message
+        <label for="gender">
+            <input type="radio" name="gender" id="gender" value="${gender}" required>
+        </label><fmt:message
             key="page.registration.${gender.getName()}"/>
         <br>
     </c:forEach>
+
+    <input type="hidden" name="role" value="USER">
+
+    <c:if test="${not empty sessionScope.user && sessionScope.user.getRole().name() == 'SUPER_ADMIN'}">
+        <label for="role"></label><select name="role" id="role" required>
+        <c:forEach var="role" items="${requestScope.roles}">
+            <option value="${role}">${role}</option>
+        </c:forEach>
+    </select><br>
+    </c:if>
+
     <button type="submit"><fmt:message key="page.registration.send"/></button>
     <c:if test="${not empty requestScope.errors}">
         <div style="color: red">
             <c:forEach var="error" items="${requestScope.errors}">
-                <span>${error.getMessage}</span><br>
+                <span><fmt:message key="page.registration.${error.getCode()}"/></span><br>
             </c:forEach>
         </div>
     </c:if>

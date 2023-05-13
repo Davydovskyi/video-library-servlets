@@ -16,7 +16,7 @@ public enum Gender {
 
     public static Optional<Gender> find(String name) {
         return Arrays.stream(Gender.values())
-                .filter(gender -> gender.name.equals(name))
+                .filter(gender -> gender.name().equals(name))
                 .findFirst();
     }
 

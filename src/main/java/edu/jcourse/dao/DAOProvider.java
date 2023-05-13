@@ -1,11 +1,12 @@
 package edu.jcourse.dao;
 
 import edu.jcourse.dao.impl.UserDAOImpl;
+import lombok.Getter;
 
 public class DAOProvider {
 
     private static DAOProvider instance;
-
+    @Getter
     private final UserDAO userDAO;
 
     private DAOProvider() {
@@ -23,9 +24,5 @@ public class DAOProvider {
             }
         }
         return instance;
-    }
-
-    public UserDAO getUserDAO() {
-        return userDAO;
     }
 }

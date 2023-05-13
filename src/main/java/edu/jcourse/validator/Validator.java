@@ -1,4 +1,8 @@
 package edu.jcourse.validator;
 
-public interface Validator <T>{
+import edu.jcourse.exception.DAOException;
+
+public interface Validator<T> {
+
+    ValidationResult isValid(T t);
 }
