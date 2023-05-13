@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Optional;
 
 public class ImageServiceImpl implements ImageService {
@@ -16,7 +17,14 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void upload(String imagePath, InputStream imageContent) throws ServiceException {
+        Path path = Path.of(basePath, imagePath);
 
+        try (imageContent) {
+            Files.createDirectories(path.getParent());
+            Files.write(path, imageContent.readAllBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override
