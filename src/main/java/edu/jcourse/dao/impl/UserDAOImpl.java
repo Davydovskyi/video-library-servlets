@@ -8,6 +8,7 @@ import edu.jcourse.exception.DAOException;
 import edu.jcourse.util.ConnectionBuilder;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,7 +75,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> findAll() throws DAOException {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

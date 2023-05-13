@@ -24,7 +24,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = UrlPath.REGISTRATION)
 public class RegistrationServlet extends HttpServlet {
 
-    private final UserService userService = ServiceProvider.getInstance().getUserService();
+    private final transient UserService userService = ServiceProvider.getInstance().getUserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,8 +45,6 @@ public class RegistrationServlet extends HttpServlet {
                 .gender(req.getParameter("gender"))
                 .role(req.getParameter("role"))
                 .build();
-
-        System.out.println(createUserDTO);
 
         try {
             userService.create(createUserDTO);

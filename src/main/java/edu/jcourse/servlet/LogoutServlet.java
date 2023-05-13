@@ -1,6 +1,5 @@
 package edu.jcourse.servlet;
 
-import edu.jcourse.dto.UserDTO;
 import edu.jcourse.util.UrlPath;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
