@@ -28,8 +28,7 @@
     <c:forEach var="gender" items="${requestScope.genders}">
         <label for="gender">
             <input type="radio" name="gender" id="gender" value="${gender}" required>
-        </label><fmt:message
-            key="page.registration.${gender.getName()}"/>
+        </label><fmt:message key="${gender.getCode()}"/>
         <br>
     </c:forEach>
 
@@ -49,7 +48,7 @@
     <c:if test="${not empty requestScope.errors}">
         <div style="color: red">
             <c:forEach var="error" items="${requestScope.errors}">
-                <span><fmt:message key="page.registration.${error.getCode()}"/></span><br>
+                <span><fmt:message key="${error.getCode()}"/></span><br>
             </c:forEach>
         </div>
     </c:if>

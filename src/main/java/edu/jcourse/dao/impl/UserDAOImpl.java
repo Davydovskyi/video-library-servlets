@@ -40,7 +40,7 @@ public class UserDAOImpl implements UserDAO {
             """;
 
     @Override
-    public boolean delete(Long aLong) throws DAOException {
+    public boolean delete(Long id) throws DAOException {
         return false;
     }
 
@@ -53,8 +53,8 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(3, user.getImage());
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getPassword());
-            preparedStatement.setString(6, user.getGender().name());
-            preparedStatement.setString(7, user.getRole().name());
+            preparedStatement.setString(6, user.getRole().name());
+            preparedStatement.setString(7, user.getGender().name());
 
             preparedStatement.executeUpdate();
 
@@ -79,7 +79,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Optional<User> findById(Long aLong) throws DAOException {
+    public Optional<User> findById(Long id) throws DAOException {
         return Optional.empty();
     }
 

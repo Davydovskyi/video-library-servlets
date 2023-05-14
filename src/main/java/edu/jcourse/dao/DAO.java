@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface DAO<K, E> {
 
-    boolean delete(K k) throws DAOException;
+    boolean delete(K id) throws DAOException;
 
     E save(E e) throws DAOException;
 
@@ -15,5 +15,5 @@ public interface DAO<K, E> {
 
     List<E> findAll() throws DAOException;
 
-    Optional<E> findById(K k) throws DAOException;
+    Optional<E> findById(K id) throws DAOException;
 }

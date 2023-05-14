@@ -4,14 +4,14 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum Gender {
-    MALE("male"),
-    FEMALE("female"),
-    OTHER("other");
+    MALE("gender.male"),
+    FEMALE("gender.female"),
+    OTHER("gender.other");
 
-    private final String name;
+    private final String code;
 
     Gender(String name) {
-        this.name = name;
+        this.code = name;
     }
 
     public static Optional<Gender> find(String name) {
@@ -20,7 +20,7 @@ public enum Gender {
                 .findFirst();
     }
 
-    public String getName() {
-        return name;
+    public String getCode() {
+        return code;
     }
 }
