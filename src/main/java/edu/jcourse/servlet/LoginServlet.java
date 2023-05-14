@@ -2,6 +2,7 @@ package edu.jcourse.servlet;
 
 import edu.jcourse.dto.LoginUserDTO;
 import edu.jcourse.dto.UserDTO;
+import edu.jcourse.entity.Role;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.exception.ValidationException;
 import edu.jcourse.service.ServiceProvider;
@@ -56,7 +57,11 @@ public class LoginServlet extends HttpServlet {
     @SneakyThrows
     private void onLoginSuccess(UserDTO userDTO, HttpServletRequest req, HttpServletResponse resp) {
         req.getSession().setAttribute("user", userDTO);
-        resp.sendRedirect(UrlPath.MOVIES);
+        if (userDTO.role() == Role.USER) {
+            resp.sendRedirect(UrlPath.MOVIES);
+        } else {
+            resp.sendRedirect(UrlPath.ADMIN);
+        }
     }
 
     @Override

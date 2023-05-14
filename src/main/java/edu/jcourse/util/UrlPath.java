@@ -10,4 +10,5 @@ public class UrlPath {
     public static final String LOGOUT = "/logout";
     public static final String LOCALE = "/locale";
     public static final String MOVIES = "/movies";
+    public static final String ADMIN = "/admin";
 }

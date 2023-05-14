@@ -6,7 +6,9 @@
 </head>
 <body>
 <%@ include file="localeHeader.jsp" %>
+<%@ include file="logoutHeader.jsp" %>
 
+<c:if test="${empty sessionScope.user}">
 <form action="${pageContext.request.contextPath}/login" method="post">
     <label for="email"><fmt:message key="page.login.email"/>
         <input type="text" name="email" id="email" value="${param.email}" required>
@@ -33,6 +35,8 @@
             </span>
         </div>
     </c:if>
+    </c:if>
+
 </form>
 </body>
 </html>

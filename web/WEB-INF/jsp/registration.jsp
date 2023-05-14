@@ -7,7 +7,6 @@
 <%@include file="localeHeader.jsp" %>
 <%@include file="logoutHeader.jsp" %>
 
-
 <img src="${pageContext.request.contextPath}/images/applicationImage/image.PNG" alt="Welcome Image"/>
 
 <form action="${pageContext.request.contextPath}/registration" method="post" enctype="multipart/form-data">
@@ -39,7 +38,6 @@
     </c:if>
 
     <c:if test="${sessionScope.user != null && sessionScope.user.role().name() == 'SUPER_ADMIN'}">
-        ${param.role = null}
         <label for="role"></label><select name="role" id="role" required>
         <c:forEach var="role" items="${requestScope.roles}">
             <option value="${role}">${role}</option>
