@@ -1,7 +1,7 @@
 package edu.jcourse.servlet;
 
 import edu.jcourse.dto.CreateUserDTO;
-import edu.jcourse.dto.UserDTO;
+import edu.jcourse.dto.ReceiveUserDTO;
 import edu.jcourse.entity.Gender;
 import edu.jcourse.entity.Role;
 import edu.jcourse.exception.ServiceException;
@@ -48,7 +48,7 @@ public class RegistrationServlet extends HttpServlet {
 
         try {
             userService.create(createUserDTO);
-            UserDTO user = (UserDTO) req.getSession().getAttribute("user");
+            ReceiveUserDTO user = (ReceiveUserDTO) req.getSession().getAttribute("user");
 
             if (user != null && user.role() == Role.SUPER_ADMIN) {
                 doGet(req, resp);

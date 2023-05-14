@@ -4,7 +4,7 @@ import edu.jcourse.dao.DAOProvider;
 import edu.jcourse.dao.UserDAO;
 import edu.jcourse.dto.CreateUserDTO;
 import edu.jcourse.dto.LoginUserDTO;
-import edu.jcourse.dto.UserDTO;
+import edu.jcourse.dto.ReceiveUserDTO;
 import edu.jcourse.entity.User;
 import edu.jcourse.exception.DAOException;
 import edu.jcourse.exception.ServiceException;
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserDTO> login(LoginUserDTO loginUserDTO) throws ServiceException, ValidationException {
+    public Optional<ReceiveUserDTO> login(LoginUserDTO loginUserDTO) throws ServiceException, ValidationException {
         ValidationResult validationResult = loginValidator.isValid(loginUserDTO);
         if (!validationResult.isValid()) {
             throw new ValidationException(validationResult.getErrors());

@@ -1,6 +1,6 @@
 package edu.jcourse.filter;
 
-import edu.jcourse.dto.UserDTO;
+import edu.jcourse.dto.ReceiveUserDTO;
 import edu.jcourse.util.UrlPath;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -28,7 +28,7 @@ public class AuthorizationFilter implements Filter {
     }
 
     private boolean isUserLoggedIn(ServletRequest servletRequest) {
-        UserDTO user = (UserDTO) ((HttpServletRequest) servletRequest).getSession().getAttribute("user");
+        ReceiveUserDTO user = (ReceiveUserDTO) ((HttpServletRequest) servletRequest).getSession().getAttribute("user");
         return user != null;
     }
 

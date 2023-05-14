@@ -1,13 +1,13 @@
 package edu.jcourse.mapper.impl;
 
-import edu.jcourse.dto.UserDTO;
+import edu.jcourse.dto.ReceiveUserDTO;
 import edu.jcourse.entity.User;
 import edu.jcourse.mapper.Mapper;
 
-public class UserMapper implements Mapper<User, UserDTO> {
+public class UserMapper implements Mapper<User, ReceiveUserDTO> {
     @Override
-    public UserDTO mapFrom(User user) {
-        return UserDTO.builder()
+    public ReceiveUserDTO mapFrom(User user) {
+        return ReceiveUserDTO.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .birthday(user.getBirthDate())

@@ -1,6 +1,6 @@
 package edu.jcourse.filter;
 
-import edu.jcourse.dto.UserDTO;
+import edu.jcourse.dto.ReceiveUserDTO;
 import edu.jcourse.entity.Role;
 import edu.jcourse.util.UrlPath;
 import jakarta.servlet.*;
@@ -14,7 +14,7 @@ import java.io.IOException;
 public class UnsafeFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        UserDTO user = (UserDTO) ((HttpServletRequest) servletRequest).getSession().getAttribute("user");
+        ReceiveUserDTO user = (ReceiveUserDTO) ((HttpServletRequest) servletRequest).getSession().getAttribute("user");
         if (user == null) {
             ((HttpServletResponse) servletResponse).sendRedirect(UrlPath.LOGIN);
         } else if (user.role() == Role.USER) {
