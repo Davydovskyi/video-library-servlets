@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
-@WebFilter(urlPatterns = "/*")
+@WebFilter(urlPatterns = "/*", dispatcherTypes = DispatcherType.INCLUDE)
 public class AuthorizationFilter implements Filter {
 
     private static final Set<String> PUBLIC_PATHS = Set.of(UrlPath.REGISTRATION, UrlPath.LOGIN, UrlPath.LOCALE, UrlPath.IMAGES);

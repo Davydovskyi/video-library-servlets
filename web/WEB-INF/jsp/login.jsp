@@ -5,8 +5,7 @@
     <title>Login</title>
 </head>
 <body>
-<%@ include file="localeHeader.jsp" %>
-<%@ include file="logoutHeader.jsp" %>
+<%@ include file="header.jsp" %>
 
 <c:if test="${empty sessionScope.user}">
 <form action="${pageContext.request.contextPath}/login" method="post">

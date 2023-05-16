@@ -15,4 +15,5 @@ public class CodeUtil {
     public static final String INVALID_IMAGE_FORMAT = "error.invalid.image.format";
     public static final String INVALID_IMAGE_SIZE = "error.invalid.image.size";
     public static final String EXIST_PERSON_CODE = "error.exist.person";
+    public static final String SUCCESS_ADD_CODE = "add.success";
 }

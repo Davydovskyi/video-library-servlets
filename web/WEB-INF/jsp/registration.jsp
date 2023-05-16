@@ -4,8 +4,7 @@
     <title>Registration</title>
 </head>
 <body>
-<%@include file="localeHeader.jsp" %>
-<%@include file="logoutHeader.jsp" %>
+<%@include file="header.jsp" %>
 
 <img src="${pageContext.request.contextPath}/images/applicationImage/image.PNG" alt="Welcome Image"/>
 
@@ -32,11 +31,11 @@
         <br>
     </c:forEach>
 
-    <c:if test="${sessionScope.user == null || sessionScope.user.role().name() != 'SUPER_ADMIN'}">
+    <c:if test="${sessionScope.user.role().name() != 'SUPER_ADMIN'}">
         <input type="hidden" name="role" value="USER">
     </c:if>
 
-    <c:if test="${sessionScope.user != null && sessionScope.user.role().name() == 'SUPER_ADMIN'}">
+    <c:if test="${sessionScope.user.role().name() == 'SUPER_ADMIN'}">
         <label for="role"></label><select name="role" id="role" required>
         <c:forEach var="role" items="${requestScope.roles}">
             <option value="${role}">${role}</option>
@@ -45,6 +44,18 @@
     </c:if>
 
     <button type="submit"><fmt:message key="page.registration.send"/></button>
+    <c:if test="${sessionScope.user.role().name() == 'SUPER_ADMIN'}">
+        <a href="${pageContext.request.contextPath}/admin">
+            <button type="button"><fmt:message key="page.registration.backToAdmin.button"/></button>
+        </a>
+    </c:if>
+
+    <c:if test="${not empty requestScope.success}">
+        <div style="color: green">
+            <span><fmt:message key="add.success"/></span><br>
+        </div>
+    </c:if>
+
     <c:if test="${not empty requestScope.errors}">
         <div style="color: red">
             <c:forEach var="error" items="${requestScope.errors}">

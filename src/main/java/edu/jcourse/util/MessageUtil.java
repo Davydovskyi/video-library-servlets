@@ -14,5 +14,6 @@ public class MessageUtil {
     public static final String IMAGE_DOES_NOT_EXIST_MESSAGE = "The Image doesn't exist";
     public static final String IMAGE_TOO_BIG_MESSAGE = "The image is too big";
     public static final String IMAGE_FORMAT_INVALID_MESSAGE = "The image format is invalid";
-    public static final String PERSON_EXISTS_MESSAGE = "The image format is invalid";
+    public static final String PERSON_EXISTS_MESSAGE = "Person already exists";
+    public static final String ADD_USER_SUCCESS_MESSAGE = "User added successfully";
 }

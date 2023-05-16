@@ -8,6 +8,7 @@ import edu.jcourse.exception.ServiceException;
 import edu.jcourse.exception.ValidationException;
 import edu.jcourse.service.ServiceProvider;
 import edu.jcourse.service.UserService;
+import edu.jcourse.util.CodeUtil;
 import edu.jcourse.util.ConnectionBuilder;
 import edu.jcourse.util.JSPHelper;
 import edu.jcourse.util.UrlPath;
@@ -51,6 +52,7 @@ public class RegistrationServlet extends HttpServlet {
             ReceiveUserDTO user = (ReceiveUserDTO) req.getSession().getAttribute("user");
 
             if (user != null && user.role() == Role.SUPER_ADMIN) {
+                req.setAttribute("success", CodeUtil.SUCCESS_ADD_CODE);
                 doGet(req, resp);
             } else {
                 resp.sendRedirect(UrlPath.LOGIN);

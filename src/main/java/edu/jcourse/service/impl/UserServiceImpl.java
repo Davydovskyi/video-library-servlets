@@ -33,13 +33,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long create(CreateUserDTO createUserDTO) throws ServiceException, ValidationException {
+        ValidationResult validationResult = createUserValidator.isValid(createUserDTO);
+        if (!validationResult.isValid()) {
+            throw new ValidationException(validationResult.getErrors());
+        }
+
+        User user = createUserMapper.mapFrom(createUserDTO);
+        ImageService imageService = ServiceProvider.getInstance().getImageService();
+
         try {
-            ValidationResult validationResult = createUserValidator.isValid(createUserDTO);
-            if (!validationResult.isValid()) {
-                throw new ValidationException(validationResult.getErrors());
-            }
-            User user = createUserMapper.mapFrom(createUserDTO);
-            ImageService imageService = ServiceProvider.getInstance().getImageService();
             imageService.upload(user.getImage(), createUserDTO.partImage().getInputStream());
             return userDAO.save(user).getId();
         } catch (DAOException | IOException e) {
