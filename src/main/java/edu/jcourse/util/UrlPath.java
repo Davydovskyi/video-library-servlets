@@ -11,4 +11,5 @@ public class UrlPath {
     public static final String LOCALE = "/locale";
     public static final String MOVIES = "/movies";
     public static final String ADMIN = "/admin";
+    public static final String PERSON = "/person";
 }
