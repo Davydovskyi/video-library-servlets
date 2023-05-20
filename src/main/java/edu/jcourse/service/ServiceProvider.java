@@ -1,6 +1,7 @@
 package edu.jcourse.service;
 
 import edu.jcourse.service.impl.ImageServiceImpl;
+import edu.jcourse.service.impl.MovieServiceImpl;
 import edu.jcourse.service.impl.PersonServiceImpl;
 import edu.jcourse.service.impl.UserServiceImpl;
 import lombok.Getter;
@@ -14,11 +15,14 @@ public class ServiceProvider {
     private final ImageService imageService;
     @Getter
     private final PersonService personService;
+    @Getter
+    private final MovieService movieService;
 
     private ServiceProvider() {
         userService = new UserServiceImpl();
         imageService = new ImageServiceImpl();
         personService = new PersonServiceImpl();
+        movieService = new MovieServiceImpl();
     }
 
     public static ServiceProvider getInstance() {
