@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class CommonValidator {
 
     public static void nameValidation(ValidationResult validationResult, String name) {
-        if (name == null || name.isBlank()) {
+        if (isNullOrEmpty(name)) {
             validationResult.add(Error.of(CodeUtil.INVALID_NAME_CODE, MessageUtil.NAME_INVALID_MESSAGE));
         }
     }
@@ -26,14 +26,18 @@ public class CommonValidator {
     }
 
     public static void emailValidation(ValidationResult validationResult, String email) {
-        if (email == null || email.isBlank() || !email.matches(RegexUtil.EMAIL_REGEX)) {
+        if (isNullOrEmpty(email) || !email.matches(RegexUtil.EMAIL_REGEX)) {
             validationResult.add(Error.of(CodeUtil.INVALID_EMAIL_CODE, MessageUtil.EMAIL_INVALID_MESSAGE));
         }
     }
 
     public static void passwordValidation(ValidationResult validationResult, String password) {
-        if (password == null || password.isBlank() || password.length() < 8) {
+        if (isNullOrEmpty(password) || password.length() < 8) {
             validationResult.add(Error.of(CodeUtil.INVALID_PASSWORD_CODE, MessageUtil.PASSWORD_INVALID_MESSAGE));
         }
+    }
+
+    public static boolean isNullOrEmpty(String object) {
+        return object == null || object.isBlank();
     }
 }

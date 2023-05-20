@@ -16,4 +16,12 @@ public class CodeUtil {
     public static final String INVALID_IMAGE_SIZE = "error.invalid.image.size";
     public static final String EXIST_PERSON_CODE = "error.exist.person";
     public static final String SUCCESS_ADD_CODE = "add.success";
+    public static final String INVALID_TITLE_CODE = "error.invalid.title";
+    public static final String INVALID_RELEASE_YEAR_CODE = "error.invalid.releaseYear";
+    public static final String INVALID_COUNTRY_CODE = "error.invalid.country";
+    public static final String INVALID_GENRE_CODE = "error.invalid.genre";
+    public static final String INVALID_DESCRIPTION_CODE = "error.invalid.description";
+    public static final String EMPTY_MOVIE_PERSONS_CODE = "error.empty.moviePersons";
+    public static final String INVALID_MOVIE_PERSONS_CODE = "error.invalid.moviePersons";
+    public static final String EXIST_MOVIE_CODE = "error.exist.movie";
 }

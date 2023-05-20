@@ -1,8 +1,6 @@
 package edu.jcourse.validator;
 
-import edu.jcourse.validator.impl.CreatePersonValidator;
-import edu.jcourse.validator.impl.CreateUserValidator;
-import edu.jcourse.validator.impl.LoginValidator;
+import edu.jcourse.validator.impl.*;
 import lombok.Getter;
 
 public class ValidatorProvider {
@@ -14,11 +12,17 @@ public class ValidatorProvider {
     private final LoginValidator loginValidator;
     @Getter
     private final CreatePersonValidator createPersonValidator;
+    @Getter
+    private final CreateMovieValidator createMovieValidator;
+    @Getter
+    private final CreateMoviePersonValidator createMoviePersonValidator;
 
     private ValidatorProvider() {
         createUserValidator = new CreateUserValidator();
         loginValidator = new LoginValidator();
         createPersonValidator = new CreatePersonValidator();
+        createMovieValidator = new CreateMovieValidator();
+        createMoviePersonValidator = new CreateMoviePersonValidator();
     }
 
     public static ValidatorProvider getInstance() {
