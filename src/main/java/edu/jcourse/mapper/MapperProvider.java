@@ -1,8 +1,6 @@
 package edu.jcourse.mapper;
 
-import edu.jcourse.mapper.impl.CreatePersonMapper;
-import edu.jcourse.mapper.impl.CreateUserMapper;
-import edu.jcourse.mapper.impl.UserMapper;
+import edu.jcourse.mapper.impl.*;
 import lombok.Getter;
 
 public class MapperProvider {
@@ -14,11 +12,20 @@ public class MapperProvider {
     private final UserMapper userMapper;
     @Getter
     private final CreatePersonMapper createPersonMapper;
+    @Getter
+    private final PersonMapper personMapper;
+    @Getter
+    private final CreateMovieMapper createMovieMapper;
+    @Getter
+    private final CreateMoviePersonMapper createMoviePersonMapper;
 
     private MapperProvider() {
         createUserMapper = new CreateUserMapper();
         userMapper = new UserMapper();
         createPersonMapper = new CreatePersonMapper();
+        personMapper = new PersonMapper();
+        createMovieMapper = new CreateMovieMapper();
+        createMoviePersonMapper = new CreateMoviePersonMapper();
     }
 
     public static MapperProvider getInstance() {
