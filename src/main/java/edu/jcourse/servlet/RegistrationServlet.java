@@ -38,7 +38,7 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CreateUserDTO createUserDTO = CreateUserDTO.builder()
-                .name(req.getParameter("userName"))
+                .name(req.getParameter("user_name"))
                 .birthDate(req.getParameter("birthday"))
                 .partImage(req.getPart("image"))
                 .email(req.getParameter("email"))

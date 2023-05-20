@@ -55,9 +55,9 @@ public class LoginServlet extends HttpServlet {
     }
 
     @SneakyThrows
-    private void onLoginSuccess(ReceiveUserDTO userDTO, HttpServletRequest req, HttpServletResponse resp) {
-        req.getSession().setAttribute("user", userDTO);
-        if (userDTO.role() == Role.USER) {
+    private void onLoginSuccess(ReceiveUserDTO receiveUserDTO, HttpServletRequest req, HttpServletResponse resp) {
+        req.getSession().setAttribute("user", receiveUserDTO);
+        if (receiveUserDTO.role() == Role.USER) {
             resp.sendRedirect(UrlPath.MOVIES);
         } else {
             resp.sendRedirect(UrlPath.ADMIN);

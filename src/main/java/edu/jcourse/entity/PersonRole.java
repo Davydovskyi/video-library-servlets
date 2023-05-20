@@ -4,24 +4,24 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum PersonRole {
-    PRODUCER("Producer"),
-    DIRECTOR("Director"),
-    ACTOR("Actor"),
-    COMPOSER("Composer");
+    PRODUCER("personRole.producer"),
+    DIRECTOR("personRole.director"),
+    ACTOR("personRole.actor"),
+    COMPOSER("personRole.composer");
 
-    private final String name;
+    private final String code;
 
     PersonRole(String name) {
-        this.name = name;
+        this.code = name;
     }
 
     public static Optional<PersonRole> find(String name) {
         return Arrays.stream(PersonRole.values())
-                .filter(role -> role.name.equals(name))
+                .filter(role -> role.name().equals(name))
                 .findFirst();
     }
 
-    public String getName() {
-        return name;
+    public String getCode() {
+        return code;
     }
 }

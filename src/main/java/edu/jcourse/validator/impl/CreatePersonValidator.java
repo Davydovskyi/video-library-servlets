@@ -28,7 +28,6 @@ public class CreatePersonValidator implements Validator<CreatePersonDTO> {
         if (validationResult.isValid()) {
             checkForDuplicate(validationResult, createPersonDTO.name(), createPersonDTO.birthDate());
         }
-
         return validationResult;
     }
 
