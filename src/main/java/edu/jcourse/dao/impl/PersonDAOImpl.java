@@ -60,7 +60,18 @@ public class PersonDAOImpl implements PersonDAO {
 
     @Override
     public List<Person> findAll() throws DAOException {
-        return new ArrayList<>();
+        List<Person> personList = new ArrayList<>();
+        try (Connection connection = ConnectionBuilder.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL)) {
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                personList.add(buildPerson(resultSet));
+            }
+            return personList;
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
     }
 
     @Override
