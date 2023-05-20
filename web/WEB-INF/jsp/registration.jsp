@@ -9,11 +9,11 @@
 <img src="${pageContext.request.contextPath}/images/applicationImage/image.PNG" alt="Welcome Image"/>
 
 <form action="${pageContext.request.contextPath}/registration" method="post" enctype="multipart/form-data">
-    <label for="userName"><fmt:message key="page.registration.name"/>
-        <input type="text" name="userName" id="userName" required>
+    <label for="user_name"><fmt:message key="page.registration.name"/>
+        <input type="text" name="user_name" id="user_name" required>
     </label><br>
     <label for="birthday"><fmt:message key="page.registration.birthday"/>
-        <input type="date" translate="no" name="birthday" id="birthday" required>
+        <input type="date" name="birthday" id="birthday" required>
     </label><br>
     <label for="image"><fmt:message key="page.registration.image"/>
         <input type="file" name="image" id="image" required>

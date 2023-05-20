@@ -6,25 +6,25 @@
 <body>
 <%@include file="header.jsp" %>
 
-<c:if test="${not empty requestScope.addPerson}">
+<c:if test="${not empty requestScope.show_add_person}">
     <%@include file="addPerson.jsp" %>
 </c:if>
 
-<c:if test="${empty requestScope.addPerson}">
+<c:if test="${empty requestScope.show_add_person}">
     <form action="${pageContext.request.contextPath}/admin" method="post">
-        <button type="submit" name="addPerson" value="addPerson"><fmt:message key="page.admin.addPerson.button"/>
+        <button type="submit" name="show_add_person" value="addPerson"><fmt:message key="page.admin.addPerson.button"/>
         </button>
         <br>
     </form>
 </c:if>
 
-<c:if test="${not empty requestScope.addMovie}">
+<c:if test="${not empty requestScope.show_add_movie}">
     <%@include file="addMovie.jsp" %>
 </c:if>
 
-<c:if test="${empty requestScope.addMovie}">
+<c:if test="${empty requestScope.show_add_movie}">
     <form action="${pageContext.request.contextPath}/admin" method="post">
-        <button type="submit" name="addMovie" value="addMovie"><fmt:message key="page.admin.addMovie.button"/>
+        <button type="submit" name="show_add_movie" value="addMovie"><fmt:message key="page.admin.addMovie.button"/>
         </button>
         <br>
     </form>
