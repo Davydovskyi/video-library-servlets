@@ -1,9 +1,6 @@
 package edu.jcourse.dao;
 
-import edu.jcourse.dao.impl.MovieDAOImpl;
-import edu.jcourse.dao.impl.MoviePersonDAOImpl;
-import edu.jcourse.dao.impl.PersonDAOImpl;
-import edu.jcourse.dao.impl.UserDAOImpl;
+import edu.jcourse.dao.impl.*;
 import lombok.Getter;
 
 public class DAOProvider {
@@ -17,12 +14,15 @@ public class DAOProvider {
     private final MovieDAO movieDAO;
     @Getter
     private final MoviePersonDAO moviePersonDAO;
+    @Getter
+    private final ReviewDAO reviewDAO;
 
     private DAOProvider() {
         userDAO = new UserDAOImpl();
         personDAO = new PersonDAOImpl();
         movieDAO = new MovieDAOImpl();
         moviePersonDAO = new MoviePersonDAOImpl();
+        reviewDAO = new ReviewDAOImpl();
     }
 
     public static DAOProvider getInstance() {
