@@ -12,8 +12,8 @@ public class MessageUtil {
     public static final String NAME_INVALID_MESSAGE = "Name is invalid";
     public static final String BIRTHDAY_INVALID_MESSAGE = "Birthday is invalid";
     public static final String IMAGE_DOES_NOT_EXIST_MESSAGE = "The Image doesn't exist";
-    public static final String IMAGE_TOO_BIG_MESSAGE = "The image is too big";
-    public static final String IMAGE_FORMAT_INVALID_MESSAGE = "The image format is invalid";
+    public static final String IMAGE_INVALID_SIZE_MESSAGE = "Image is too big";
+    public static final String IMAGE_FORMAT_INVALID_MESSAGE = "Image format is invalid";
     public static final String PERSON_EXISTS_MESSAGE = "Person already exists";
     public static final String ADD_USER_SUCCESS_MESSAGE = "User added successfully";
     public static final String TITLE_INVALID_MESSAGE = "Title is invalid";
@@ -24,4 +24,7 @@ public class MessageUtil {
     public static final String MOVIE_PERSONS_EMPTY_MESSAGE = "Movie participant(s) not selected";
     public static final String MOVIE_PERSONS_INVALID_MESSAGE = "Not all the participants in the movie have a role";
     public static final String MOVIE_EXIST_MESSAGE = "Movie already exists";
+    public static final String REVIEW_INVALID_MESSAGE = "Review is invalid";
+    public static final String REVIEW_INVALID_SIZE_MESSAGE = "Review is too big";
+    public static final String RATE_INVALID_MESSAGE = "Rate is invalid";
 }
