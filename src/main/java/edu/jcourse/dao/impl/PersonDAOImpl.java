@@ -30,6 +30,10 @@ public class PersonDAOImpl implements PersonDAO {
             AND person_birth_date = ?;
             """;
 
+    private static final String FIND_BY_ID_SQL = FIND_ALL_SQL + """
+            WHERE person_id = ?;
+            """;
+
     @Override
     public boolean delete(Long id) throws DAOException {
         return false;
@@ -76,7 +80,11 @@ public class PersonDAOImpl implements PersonDAO {
 
     @Override
     public Optional<Person> findById(Long id) throws DAOException {
-        return Optional.empty();
+        try (Connection connection = ConnectionBuilder.getConnection()) {
+            return findById(id, connection);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
     }
 
     @Override
@@ -90,6 +98,22 @@ public class PersonDAOImpl implements PersonDAO {
 
             Person person = null;
 
+            if (resultSet.next()) {
+                person = buildPerson(resultSet);
+            }
+            return Optional.ofNullable(person);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public Optional<Person> findById(Long id, Connection connection) throws DAOException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
+            preparedStatement.setLong(1, id);
+
+            Person person = null;
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 person = buildPerson(resultSet);
             }
