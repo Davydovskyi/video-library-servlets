@@ -7,17 +7,16 @@ import edu.jcourse.entity.MoviePerson;
 import edu.jcourse.mapper.Mapper;
 import edu.jcourse.mapper.MapperProvider;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class CreateMovieMapper implements Mapper<CreateMovieDTO, Movie> {
     @Override
     public Movie mapFrom(CreateMovieDTO createMovieDTO) {
         CreateMoviePersonMapper createMoviePersonMapper = MapperProvider.getInstance().getCreateMoviePersonMapper();
 
-        Set<MoviePerson> moviePeople = createMovieDTO.moviePersons().stream()
+        List<MoviePerson> moviePeople = createMovieDTO.moviePersons().stream()
                 .map(createMoviePersonMapper::mapFrom)
-                .collect(Collectors.toSet());
+                .toList();
 
         return Movie.builder()
                 .title(createMovieDTO.title())
