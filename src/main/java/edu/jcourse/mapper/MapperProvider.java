@@ -18,6 +18,14 @@ public class MapperProvider {
     private final CreateMovieMapper createMovieMapper;
     @Getter
     private final CreateMoviePersonMapper createMoviePersonMapper;
+    @Getter
+    private final MovieMapper movieMapper;
+    @Getter
+    private final MoviePersonMapper moviePersonMapper;
+    @Getter
+    private final ReviewMapper reviewMapper;
+    @Getter
+    private final CreateReviewMapper createReviewMapper;
 
     private MapperProvider() {
         createUserMapper = new CreateUserMapper();
@@ -26,6 +34,10 @@ public class MapperProvider {
         personMapper = new PersonMapper();
         createMovieMapper = new CreateMovieMapper();
         createMoviePersonMapper = new CreateMoviePersonMapper();
+        movieMapper = new MovieMapper();
+        moviePersonMapper = new MoviePersonMapper();
+        reviewMapper = new ReviewMapper();
+        createReviewMapper = new CreateReviewMapper();
     }
 
     public static MapperProvider getInstance() {

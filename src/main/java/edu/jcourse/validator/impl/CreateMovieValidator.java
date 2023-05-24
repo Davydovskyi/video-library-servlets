@@ -15,7 +15,6 @@ import edu.jcourse.validator.ValidationResult;
 import edu.jcourse.validator.Validator;
 import edu.jcourse.validator.ValidatorProvider;
 
-import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
 
@@ -27,9 +26,9 @@ public class CreateMovieValidator implements Validator<CreateMovieDTO> {
     public ValidationResult isValid(CreateMovieDTO createMovieDTO) throws ServiceException {
         ValidationResult validationResult = new ValidationResult();
         titleValidation(validationResult, createMovieDTO.title());
-        releaseYearValidation(validationResult, createMovieDTO.releaseYear());
+        CommonValidator.releaseYearValidation(validationResult, createMovieDTO.releaseYear());
         countryValidation(validationResult, createMovieDTO.country());
-        genreValidation(validationResult, createMovieDTO.genre());
+        CommonValidator.genreValidation(validationResult, createMovieDTO.genre());
         descriptionValidation(validationResult, createMovieDTO.description());
         moviePersonsValidation(validationResult, createMovieDTO.moviePersons());
 
@@ -45,27 +44,9 @@ public class CreateMovieValidator implements Validator<CreateMovieDTO> {
         }
     }
 
-    private void releaseYearValidation(ValidationResult validationResult, String releaseYear) {
-        try {
-            Optional<Integer> year = Optional.ofNullable(releaseYear).map(Integer::parseInt);
-            int currentYear = LocalDate.now().getYear();
-            if (year.isEmpty() || year.get() > currentYear || year.get() < 1900) {
-                validationResult.add(Error.of(CodeUtil.INVALID_RELEASE_YEAR_CODE, MessageUtil.RELEASE_YEAR_INVALID_MESSAGE));
-            }
-        } catch (NumberFormatException e) {
-            validationResult.add(Error.of(CodeUtil.INVALID_RELEASE_YEAR_CODE, MessageUtil.RELEASE_YEAR_INVALID_MESSAGE));
-        }
-    }
-
     private void countryValidation(ValidationResult validationResult, String country) {
         if (CommonValidator.isNullOrEmpty(country)) {
             validationResult.add(Error.of(CodeUtil.INVALID_COUNTRY_CODE, MessageUtil.COUNTRY_INVALID_MESSAGE));
-        }
-    }
-
-    private void genreValidation(ValidationResult validationResult, String genre) {
-        if (Genre.find(genre).isEmpty()) {
-            validationResult.add(Error.of(CodeUtil.INVALID_GENRE_CODE, MessageUtil.GENRE_INVALID_MESSAGE));
         }
     }
 

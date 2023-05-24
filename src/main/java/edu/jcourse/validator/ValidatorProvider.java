@@ -16,6 +16,10 @@ public class ValidatorProvider {
     private final CreateMovieValidator createMovieValidator;
     @Getter
     private final CreateMoviePersonValidator createMoviePersonValidator;
+    @Getter
+    private final MovieFilterValidation movieFilterValidation;
+    @Getter
+    private final CreateReviewValidator createReviewValidator;
 
     private ValidatorProvider() {
         createUserValidator = new CreateUserValidator();
@@ -23,6 +27,8 @@ public class ValidatorProvider {
         createPersonValidator = new CreatePersonValidator();
         createMovieValidator = new CreateMovieValidator();
         createMoviePersonValidator = new CreateMoviePersonValidator();
+        movieFilterValidation = new MovieFilterValidation();
+        createReviewValidator = new CreateReviewValidator();
     }
 
     public static ValidatorProvider getInstance() {

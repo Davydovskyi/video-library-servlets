@@ -64,11 +64,11 @@ public class CreateUserValidator implements Validator<CreateUserDTO> {
 
     private void imageValidation(ValidationResult validationResult, Part imagePart) {
         if (imagePart == null) {
-            validationResult.add(Error.of(CodeUtil.INVALID_IMAGE, MessageUtil.IMAGE_DOES_NOT_EXIST_MESSAGE));
+            validationResult.add(Error.of(CodeUtil.INVALID_IMAGE_CODE, MessageUtil.IMAGE_DOES_NOT_EXIST_MESSAGE));
         } else if (!imagePart.getSubmittedFileName().toUpperCase().matches(RegexUtil.IMAGE_FORMAT_REGEX)) {
-            validationResult.add(Error.of(CodeUtil.INVALID_IMAGE_FORMAT, MessageUtil.IMAGE_FORMAT_INVALID_MESSAGE));
+            validationResult.add(Error.of(CodeUtil.INVALID_IMAGE_FORMAT_CODE, MessageUtil.IMAGE_FORMAT_INVALID_MESSAGE));
         } else if (imagePart.getSize() > IMAGE_SIZE) {
-            validationResult.add(Error.of(CodeUtil.INVALID_IMAGE_SIZE, MessageUtil.IMAGE_TOO_BIG_MESSAGE));
+            validationResult.add(Error.of(CodeUtil.INVALID_IMAGE_SIZE_CODE, MessageUtil.IMAGE_INVALID_SIZE_MESSAGE));
         }
     }
 }
