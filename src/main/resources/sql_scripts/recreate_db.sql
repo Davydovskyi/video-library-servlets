@@ -39,6 +39,7 @@ CREATE TABLE movie
 );
 
 CREATE INDEX movie_title_idx ON movie (movie_title);
+CREATE INDEX movie_release_year_idx ON movie (release_year);
 
 CREATE TABLE movie_person
 (

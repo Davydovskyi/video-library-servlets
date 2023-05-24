@@ -61,4 +61,3 @@ public class AdminServlet extends HttpServlet {
         super.destroy();
     }
 }
-

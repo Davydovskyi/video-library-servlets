@@ -13,4 +13,8 @@ public class UrlPath {
     public static final String ADMIN = "/admin";
     public static final String ADD_PERSON = "/add-person";
     public static final String ADD_MOVIE = "/add-movie";
+    public static final String MOVIE = "/movie";
+    public static final String PERSON = "/person";
+    public static final String USER = "/user";
+    public static final String ADD_REVIEW = "/add-review";
 }
