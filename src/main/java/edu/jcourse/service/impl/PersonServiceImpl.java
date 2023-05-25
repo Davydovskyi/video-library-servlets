@@ -17,6 +17,7 @@ import edu.jcourse.validator.ValidatorProvider;
 import edu.jcourse.validator.impl.CreatePersonValidator;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PersonServiceImpl implements PersonService {
 
@@ -46,6 +47,16 @@ public class PersonServiceImpl implements PersonService {
             return personDAO.findAll().stream()
                     .map(personMapper::mapFrom)
                     .toList();
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Optional<ReceivePersonDTO> findById(Long id) throws ServiceException {
+        try {
+            Optional<Person> person = personDAO.findById(id);
+            return person.map(personMapper::mapFrom);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

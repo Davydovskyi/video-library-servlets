@@ -74,7 +74,7 @@ public class ReviewDAOImpl implements ReviewDAO {
     }
 
     @Override
-    public List<Review> findByMovieId(Long movieId, Connection connection) throws DAOException {
+    public List<Review> findAllByMovieId(Long movieId, Connection connection) throws DAOException {
         List<Review> reviews = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_MOVIE_ID_SQL)) {
             preparedStatement.setLong(1, movieId);

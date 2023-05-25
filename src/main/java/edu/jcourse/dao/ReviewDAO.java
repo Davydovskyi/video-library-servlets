@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ReviewDAO extends DAO<Long, Review> {
 
-    List<Review> findByMovieId(Long movieId, Connection connection) throws DAOException;
+    List<Review> findAllByMovieId(Long movieId, Connection connection) throws DAOException;
 }
