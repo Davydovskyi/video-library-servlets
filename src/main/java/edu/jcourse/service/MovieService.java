@@ -16,4 +16,6 @@ public interface MovieService {
     List<ReceiveMovieDTO> findMovies(MovieFilterDTO movieFilterDTO) throws ServiceException, ValidationException;
 
     Optional<ReceiveMovieDTO> findById(Long id) throws ServiceException;
+
+    List<ReceiveMovieDTO> findByPersonId(Long personId) throws ServiceException;
 }

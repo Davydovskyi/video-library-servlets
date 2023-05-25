@@ -13,4 +13,6 @@ public interface MovieDAO extends DAO<Long, Movie> {
     Optional<Movie> findByAllFields(String title, Integer releaseYear, String country, Genre genre) throws DAOException;
 
     List<Movie> findAll(MovieFilterDTO movieFilterDTO) throws DAOException;
+
+    List<Movie> findAllByPersonId(Long personId) throws DAOException;
 }

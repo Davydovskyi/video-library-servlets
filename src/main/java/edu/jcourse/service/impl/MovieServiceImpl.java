@@ -70,4 +70,16 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public List<ReceiveMovieDTO> findByPersonId(Long personId) throws ServiceException {
+        try {
+            List<Movie> movies = movieDAO.findAllByPersonId(personId);
+            return movies.stream()
+                    .map(movieMapper::mapFrom)
+                    .toList();
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
 }
