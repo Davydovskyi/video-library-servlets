@@ -27,4 +27,5 @@ public class CodeUtil {
     public static final String INVALID_REVIEW_CODE = "error.invalid.review";
     public static final String INVALID_REVIEW_SIZE_CODE = "error.invalid.review.size";
     public static final String INVALID_RATE_CODE = "error.invalid.rate";
+    public static final String EXIST_REVIEW_CODE = "error.exist.review";
 }

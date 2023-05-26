@@ -26,7 +26,7 @@ public class ReviewDAOImpl implements ReviewDAO {
             FROM review
             """;
 
-    private static final String FIND_BY_MOVIE_ID_SQL = FIND_ALL_SQL + """
+    private static final String FIND_ALL_BY_MOVIE_ID_SQL = FIND_ALL_SQL + """
             WHERE movie_id = ?;
             """;
 
@@ -36,7 +36,11 @@ public class ReviewDAOImpl implements ReviewDAO {
             """;
 
     private static final String FIND_ALL_BY_USER_ID_SQL = FIND_ALL_SQL + """
-            WHERE user_id = ?;
+            WHERE user_id = ?
+            """;
+
+    private static final String FIND_BY_USER_ID_AND_MOVIE_ID_SQL = FIND_ALL_BY_USER_ID_SQL + """
+            AND movie_id = ?;
             """;
 
     @Override
@@ -82,7 +86,7 @@ public class ReviewDAOImpl implements ReviewDAO {
     @Override
     public List<Review> findAllByMovieId(Long movieId, Connection connection) throws DAOException {
         List<Review> reviews = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_MOVIE_ID_SQL)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_MOVIE_ID_SQL)) {
             preparedStatement.setLong(1, movieId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -112,6 +116,25 @@ public class ReviewDAOImpl implements ReviewDAO {
             }
 
             return reviews;
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public Optional<Review> findByUserIdAndMovieId(Long userId, Long movieId) throws DAOException {
+        try (Connection connection = ConnectionBuilder.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_USER_ID_AND_MOVIE_ID_SQL)) {
+            preparedStatement.setLong(1, userId);
+            preparedStatement.setLong(2, movieId);
+
+            Review review = null;
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                review = buildReview(resultSet);
+            }
+
+            return Optional.ofNullable(review);
         } catch (SQLException e) {
             throw new DAOException(e);
         }

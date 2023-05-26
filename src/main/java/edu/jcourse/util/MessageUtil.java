@@ -27,4 +27,5 @@ public class MessageUtil {
     public static final String REVIEW_INVALID_MESSAGE = "Review is invalid";
     public static final String REVIEW_INVALID_SIZE_MESSAGE = "Review is too big";
     public static final String RATE_INVALID_MESSAGE = "Rate is invalid";
+    public static final String REVIEW_EXIST_MESSAGE = "You've already reviewed this movie";
 }
