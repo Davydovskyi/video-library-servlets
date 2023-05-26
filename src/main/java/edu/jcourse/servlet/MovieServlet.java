@@ -45,6 +45,7 @@ public class MovieServlet extends HttpServlet {
         try {
             List<ReceiveMovieDTO> movieDTOS = movieService.findMovies(movieFilterDTO);
             req.setAttribute("movies", movieDTOS);
+            req.getSession().setAttribute("movies", movieDTOS);
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         } catch (ValidationException e) {

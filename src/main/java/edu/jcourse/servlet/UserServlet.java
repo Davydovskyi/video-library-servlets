@@ -23,8 +23,8 @@ import java.util.Optional;
 @WebServlet(urlPatterns = UrlPath.USER + "/*")
 public class UserServlet extends HttpServlet {
 
-    private final UserService userService = ServiceProvider.getInstance().getUserService();
-    private final ReviewService reviewService = ServiceProvider.getInstance().getReviewService();
+    private final transient UserService userService = ServiceProvider.getInstance().getUserService();
+    private final transient ReviewService reviewService = ServiceProvider.getInstance().getReviewService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

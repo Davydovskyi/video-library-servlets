@@ -52,7 +52,7 @@ public class MoviePersonDAOImpl implements MoviePersonDAO {
 
     @Override
     public List<MoviePerson> findAll() throws DAOException {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

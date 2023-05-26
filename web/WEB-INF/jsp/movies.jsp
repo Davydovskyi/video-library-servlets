@@ -44,7 +44,10 @@
 </form>
 
 <c:if test="${not empty requestScope.movies}">
-    <h2><fmt:message key="page.movies.result"/></h2>
+    <h2><fmt:message key="page.movies.result"/></h2><br>
+    <a href="${pageContext.request.contextPath}/download/movies">
+        <button type="button"><fmt:message key="download.button"/></button>
+    </a>
     <ol>
         <c:forEach var="movie" varStatus="loop" items="${requestScope.movies}">
             <li value="${loop.index + 1}">

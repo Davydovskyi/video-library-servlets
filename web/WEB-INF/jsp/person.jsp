@@ -9,7 +9,14 @@
 <h1>${requestScope.person.personData()}</h1>
 
 <div>
-    <span><b><fmt:message key="page.person.filmography"/></b></span>
+    <h2>
+        <b><fmt:message key="page.person.filmography"/></b>
+    </h2><br>
+    <c:if test="${not empty requestScope.movies}">
+        <a href="${pageContext.request.contextPath}/download/person-movies">
+            <button type="button"><fmt:message key="download.button"/></button>
+        </a>
+    </c:if>
     <ol>
         <c:forEach var="movie" varStatus="loop" items="${requestScope.movies}">
             <li value="${loop.index + 1}">
@@ -20,6 +27,5 @@
     </ol>
     <br>
 </div>
-
 </body>
 </html>

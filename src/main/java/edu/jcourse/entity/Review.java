@@ -46,13 +46,11 @@ public class Review {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder(getClass().getSimpleName());
-        sb.append("{id=").append(id);
-        sb.append(", movieId=").append(Optional.ofNullable(movie).map(Movie::getId).orElse(null));
-        sb.append(", user=").append(user);
-        sb.append(", text='").append(text).append('\'');
-        sb.append(", rate=").append(rate);
-        sb.append('}');
-        return sb.toString();
+        return getClass().getSimpleName() + "{id=" + id +
+               ", movieId=" + Optional.ofNullable(movie).map(Movie::getId).orElse(null) +
+               ", user=" + user +
+               ", text='" + text + '\'' +
+               ", rate=" + rate +
+               '}';
     }
 }

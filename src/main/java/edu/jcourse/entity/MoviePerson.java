@@ -43,12 +43,10 @@ public class MoviePerson {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder(getClass().getSimpleName());
-        sb.append("{id=").append(id);
-        sb.append(", movieId=").append(Optional.ofNullable(movie).map(Movie::getId).orElse(null));
-        sb.append(", person=").append(person);
-        sb.append(", personRole=").append(personRole);
-        sb.append('}');
-        return sb.toString();
+        return getClass().getSimpleName() + "{id=" + id +
+               ", movieId=" + Optional.ofNullable(movie).map(Movie::getId).orElse(null) +
+               ", person=" + person +
+               ", personRole=" + personRole +
+               '}';
     }
 }

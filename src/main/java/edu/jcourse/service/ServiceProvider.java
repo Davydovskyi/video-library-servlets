@@ -16,6 +16,8 @@ public class ServiceProvider {
     private final MovieService movieService;
     @Getter
     private final ReviewService reviewService;
+    @Getter
+    private final DownloadService downloadService;
 
     private ServiceProvider() {
         userService = new UserServiceImpl();
@@ -23,6 +25,7 @@ public class ServiceProvider {
         personService = new PersonServiceImpl();
         movieService = new MovieServiceImpl();
         reviewService = new ReviewServiceImpl();
+        downloadService = new DownloadServiceImpl();
     }
 
     public static ServiceProvider getInstance() {

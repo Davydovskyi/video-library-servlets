@@ -17,4 +17,5 @@ public class UrlPath {
     public static final String PERSON = "/person";
     public static final String USER = "/user";
     public static final String ADD_REVIEW = "/add-review";
+    public static final String DOWNLOAD = "/download";
 }

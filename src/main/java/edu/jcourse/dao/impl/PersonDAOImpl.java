@@ -14,8 +14,8 @@ import java.util.Optional;
 public class PersonDAOImpl implements PersonDAO {
 
     private static final String SAVE_SQL = """
-            INSERT INTO person(person_name, person_birth_date) 
-            VALUES (?, ?); 
+            INSERT INTO person(person_name, person_birth_date)
+            VALUES (?, ?);
             """;
 
     private static final String FIND_ALL_SQL = """

@@ -46,6 +46,7 @@ public class PersonServlet extends HttpServlet {
         req.setAttribute("person", personDTO);
         List<ReceiveMovieDTO> movies = movieService.findByPersonId(personDTO.id());
         req.setAttribute("movies", movies);
+        req.getSession().setAttribute("person-movies", movies);
     }
 
     @Override

@@ -8,10 +8,10 @@
 
 <h1>${requestScope.movie.title()}</h1>
 <div>
-    <span><b><fmt:message key="page.movie.genre"/></b>${requestScope.movie.genre()}</span><br>
-    <span><b><fmt:message key="page.movie.releaseYear"/></b>${requestScope.movie.releaseYear()}</span><br>
-    <span><b><fmt:message key="page.movie.country"/></b>${requestScope.movie.country()}</span><br>
-    <span><b><fmt:message key="page.movie.description"/></b>${requestScope.movie.description()}</span><br>
+    <span><b><fmt:message key="page.movie.genre"/> </b>${requestScope.movie.genre()}</span><br>
+    <span><b><fmt:message key="page.movie.releaseYear"/> </b>${requestScope.movie.releaseYear()}</span><br>
+    <span><b><fmt:message key="page.movie.country"/> </b>${requestScope.movie.country()}</span><br>
+    <span><b><fmt:message key="page.movie.description"/> </b>${requestScope.movie.description()}</span><br>
     <span><b><fmt:message key="page.movie.movieParticipants"/></b></span>
     <ol>
         <c:forEach var="movie_person" varStatus="loop" items="${requestScope.movie.moviePeople()}">
