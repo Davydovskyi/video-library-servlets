@@ -9,9 +9,10 @@ public class ReviewMapper implements Mapper<Review, ReceiveReviewDTO> {
     @Override
     public ReceiveReviewDTO mapFrom(Review review) {
         UserMapper userMapper = MapperProvider.getInstance().getUserMapper();
+        MovieReviewMapper movieReviewMapper = MapperProvider.getInstance().getMovieReviewMapper();
         return ReceiveReviewDTO.builder()
                 .id(review.getId())
-                .movieId(review.getMovie().getId())
+                .movie(movieReviewMapper.mapFrom(review.getMovie()))
                 .user(userMapper.mapFrom(review.getUser()))
                 .reviewText(review.getText())
                 .rate(review.getRate())

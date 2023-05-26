@@ -62,4 +62,14 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public Optional<ReceiveUserDTO> findById(Long id) throws ServiceException {
+        try {
+            Optional<User> user = userDAO.findById(id);
+            return user.map(userMapper::mapFrom);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

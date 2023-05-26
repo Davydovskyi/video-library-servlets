@@ -196,19 +196,6 @@ public class MovieDAOImpl implements MovieDAO {
         }
     }
 
-    private Movie buildMovie(ResultSet resultSet) throws SQLException {
-        return Movie.builder()
-                .id(resultSet.getLong("movie_id"))
-                .title(resultSet.getString("movie_title"))
-                .releaseYear(resultSet.getInt("release_year"))
-                .country(resultSet.getString("movie_country"))
-                .genre(Genre.valueOf(resultSet.getString("movie_genre")))
-                .description(resultSet.getString("movie_description"))
-                .moviePersons(new ArrayList<>())
-                .reviews(new ArrayList<>())
-                .build();
-    }
-
     @Override
     public List<Movie> findAllByPersonId(Long personId) throws DAOException {
         List<Movie> movies = new ArrayList<>();
@@ -224,6 +211,35 @@ public class MovieDAOImpl implements MovieDAO {
         } catch (SQLException e) {
             throw new DAOException(e);
         }
+    }
+
+    @Override
+    public Optional<Movie> findById(Long id, Connection connection) throws DAOException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
+            preparedStatement.setLong(1, id);
+
+            Movie movie = null;
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                movie = buildMovie(resultSet);
+            }
+            return Optional.ofNullable(movie);
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+
+    private Movie buildMovie(ResultSet resultSet) throws SQLException {
+        return Movie.builder()
+                .id(resultSet.getLong("movie_id"))
+                .title(resultSet.getString("movie_title"))
+                .releaseYear(resultSet.getInt("release_year"))
+                .country(resultSet.getString("movie_country"))
+                .genre(Genre.valueOf(resultSet.getString("movie_genre")))
+                .description(resultSet.getString("movie_description"))
+                .moviePersons(new ArrayList<>())
+                .reviews(new ArrayList<>())
+                .build();
     }
 
     private void setMoviePersons(Movie movie, ResultSet resultSet) throws SQLException, DAOException {

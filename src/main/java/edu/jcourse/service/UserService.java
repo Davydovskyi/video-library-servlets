@@ -13,4 +13,6 @@ public interface UserService {
     Long create(CreateUserDTO createUserDTO) throws ServiceException, ValidationException;
 
     Optional<ReceiveUserDTO> login(LoginUserDTO loginUserDTO) throws ServiceException, ValidationException;
+
+    Optional<ReceiveUserDTO> findById(Long id) throws ServiceException;
 }

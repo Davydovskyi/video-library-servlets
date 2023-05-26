@@ -1,8 +1,10 @@
 package edu.jcourse.dao.impl;
 
 import edu.jcourse.dao.DAOProvider;
+import edu.jcourse.dao.MovieDAO;
 import edu.jcourse.dao.ReviewDAO;
 import edu.jcourse.dao.UserDAO;
+import edu.jcourse.entity.Movie;
 import edu.jcourse.entity.Review;
 import edu.jcourse.entity.User;
 import edu.jcourse.exception.DAOException;
@@ -31,6 +33,10 @@ public class ReviewDAOImpl implements ReviewDAO {
     private static final String SAVE_SQL = """
             INSERT INTO review(movie_id, user_id, review_text, rate)
             VALUES (?, ?, ?, ?);
+            """;
+
+    private static final String FIND_ALL_BY_USER_ID_SQL = FIND_ALL_SQL + """
+            WHERE user_id = ?;
             """;
 
     @Override
@@ -91,9 +97,32 @@ public class ReviewDAOImpl implements ReviewDAO {
         }
     }
 
+    @Override
+    public List<Review> findAllByUserId(Long userId) throws DAOException {
+        List<Review> reviews = new ArrayList<>();
+        try (Connection connection = ConnectionBuilder.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_USER_ID_SQL)) {
+            preparedStatement.setLong(1, userId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Review review = buildReview(resultSet);
+                setMovie(review, resultSet);
+                reviews.add(review);
+            }
+
+            return reviews;
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+    }
+
     private Review buildReview(ResultSet resultSet) throws SQLException {
         return Review.builder()
                 .id(resultSet.getLong("review_id"))
+                .movie(Movie.builder()
+                        .id(resultSet.getLong("movie_id"))
+                        .build())
                 .user(User.builder()
                         .id(resultSet.getLong("user_id"))
                         .build())
@@ -106,5 +135,11 @@ public class ReviewDAOImpl implements ReviewDAO {
         UserDAO userDAO = DAOProvider.getInstance().getUserDAO();
         Optional<User> user = userDAO.findById(review.getUser().getId(), resultSet.getStatement().getConnection());
         user.ifPresent(review::setUser);
+    }
+
+    private void setMovie(Review review, ResultSet resultSet) throws DAOException, SQLException {
+        MovieDAO movieDAO = DAOProvider.getInstance().getMovieDAO();
+        Optional<Movie> movie = movieDAO.findById(review.getMovie().getId(), resultSet.getStatement().getConnection());
+        movie.ifPresent(review::setMovie);
     }
 }
