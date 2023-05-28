@@ -6,7 +6,6 @@ import edu.jcourse.exception.ServiceException;
 import edu.jcourse.service.ReviewService;
 import edu.jcourse.service.ServiceProvider;
 import edu.jcourse.service.UserService;
-import edu.jcourse.util.ConnectionBuilder;
 import edu.jcourse.util.JSPHelper;
 import edu.jcourse.util.UrlPath;
 import jakarta.servlet.ServletException;
@@ -47,13 +46,5 @@ public class UserServlet extends HttpServlet {
         request.setAttribute("user", userDTO);
         List<ReceiveReviewDTO> reviews = reviewService.findAllByUserId(userDTO.id());
         request.setAttribute("reviews", reviews);
-    }
-
-    @Override
-    public void destroy() {
-        if (ConnectionBuilder.isPoolOpened()) {
-            ConnectionBuilder.closePool();
-        }
-        super.destroy();
     }
 }

@@ -45,12 +45,4 @@ public class CreateReviewServlet extends HttpServlet {
             req.getRequestDispatcher(UrlPath.MOVIE + "/" + movieId).forward(req, resp);
         }
     }
-
-    @Override
-    public void destroy() {
-        if (ConnectionBuilder.isPoolOpened()) {
-            ConnectionBuilder.closePool();
-        }
-        super.destroy();
-    }
 }

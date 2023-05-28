@@ -48,12 +48,4 @@ public class PersonServlet extends HttpServlet {
         req.setAttribute("movies", movies);
         req.getSession().setAttribute("person-movies", movies);
     }
-
-    @Override
-    public void destroy() {
-        if (ConnectionBuilder.isPoolOpened()) {
-            ConnectionBuilder.closePool();
-        }
-        super.destroy();
-    }
 }

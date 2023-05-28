@@ -52,12 +52,4 @@ public class AdminServlet extends HttpServlet {
         req.setAttribute(parameterNames.nextElement(), "yes");
         doGet(req, resp);
     }
-
-    @Override
-    public void destroy() {
-        if (ConnectionBuilder.isPoolOpened()) {
-            ConnectionBuilder.closePool();
-        }
-        super.destroy();
-    }
 }

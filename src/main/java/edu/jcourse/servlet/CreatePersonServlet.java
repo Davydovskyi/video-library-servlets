@@ -54,12 +54,4 @@ public class CreatePersonServlet extends HttpServlet {
         req.setAttribute("show_add_person", "yes");
         req.getRequestDispatcher(UrlPath.ADMIN).forward(req, resp);
     }
-
-    @Override
-    public void destroy() {
-        if (ConnectionBuilder.isPoolOpened()) {
-            ConnectionBuilder.closePool();
-        }
-        super.destroy();
-    }
 }

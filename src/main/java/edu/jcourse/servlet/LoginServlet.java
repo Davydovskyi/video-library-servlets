@@ -63,12 +63,4 @@ public class LoginServlet extends HttpServlet {
             resp.sendRedirect(UrlPath.ADMIN);
         }
     }
-
-    @Override
-    public void destroy() {
-        if (ConnectionBuilder.isPoolOpened()) {
-            ConnectionBuilder.closePool();
-        }
-        super.destroy();
-    }
 }

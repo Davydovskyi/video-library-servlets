@@ -64,12 +64,4 @@ public class RegistrationServlet extends HttpServlet {
             doGet(req, resp);
         }
     }
-
-    @Override
-    public void destroy() {
-        if (ConnectionBuilder.isPoolOpened()) {
-            ConnectionBuilder.closePool();
-        }
-        super.destroy();
-    }
 }

@@ -57,12 +57,4 @@ public class MovieDetailsServlet extends HttpServlet {
             req.setAttribute("review_exists", "yes");
         }
     }
-
-    @Override
-    public void destroy() {
-        if (ConnectionBuilder.isPoolOpened()) {
-            ConnectionBuilder.closePool();
-        }
-        super.destroy();
-    }
 }

@@ -1,5 +1,6 @@
 package edu.jcourse.filter;
 
+import edu.jcourse.util.ConnectionBuilder;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 
@@ -14,5 +15,13 @@ public class CharsetFilter implements Filter {
         servletRequest.setCharacterEncoding(StandardCharsets.UTF_8.name());
         servletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
         filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    @Override
+    public void destroy() {
+        if (ConnectionBuilder.isPoolOpened()) {
+            ConnectionBuilder.closePool();
+        }
+        Filter.super.destroy();
     }
 }
