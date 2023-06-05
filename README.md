@@ -9,6 +9,7 @@ In this project I wanted to show my work with the following technologies/tools:
 - Postgres
 - Maven
 - Git
+- JUnit5(Mockito)
 
 ## Key features
 - This application is a movie catalog with a following functionality:
