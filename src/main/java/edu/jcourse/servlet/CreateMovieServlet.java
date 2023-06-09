@@ -1,13 +1,12 @@
 package edu.jcourse.servlet;
 
-import edu.jcourse.dto.CreateMovieDTO;
-import edu.jcourse.dto.CreateMoviePersonDTO;
+import edu.jcourse.dto.CreateMovieDto;
+import edu.jcourse.dto.CreateMoviePersonDto;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.exception.ValidationException;
 import edu.jcourse.service.MovieService;
 import edu.jcourse.service.ServiceProvider;
 import edu.jcourse.util.CodeUtil;
-import edu.jcourse.util.ConnectionBuilder;
 import edu.jcourse.util.UrlPath;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,12 +30,12 @@ public class CreateMovieServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Set<CreateMoviePersonDTO> moviePersons = new HashSet<>();
+        Set<CreateMoviePersonDto> moviePersons = new HashSet<>();
         for (int i = 1; i <= 4; i++) {
             String personId = req.getParameter("member" + i);
             if (personId != null) {
                 moviePersons.add(
-                        CreateMoviePersonDTO.builder()
+                        CreateMoviePersonDto.builder()
                                 .personId(personId)
                                 .personRole(req.getParameter("movie_role" + i))
                                 .build()
@@ -44,7 +43,7 @@ public class CreateMovieServlet extends HttpServlet {
             }
         }
 
-        CreateMovieDTO createMovieDTO = CreateMovieDTO.builder()
+        CreateMovieDto createMovieDTO = CreateMovieDto.builder()
                 .title(req.getParameter("title"))
                 .releaseYear(req.getParameter("release_year"))
                 .country(req.getParameter("country"))

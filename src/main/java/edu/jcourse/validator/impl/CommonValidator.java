@@ -21,7 +21,7 @@ public class CommonValidator {
         }
     }
 
-    public static void birthDateValidation(ValidationResult validationResult, String birthDate) {
+    public static void birthdayValidation(ValidationResult validationResult, String birthDate) {
         if (!LocalDateFormatter.isValid(birthDate) || LocalDateFormatter.parse(birthDate).isAfter(LocalDate.now())) {
             validationResult.add(Error.of(CodeUtil.INVALID_BIRTHDAY_CODE, MessageUtil.BIRTHDAY_INVALID_MESSAGE));
         }

@@ -3,9 +3,9 @@ package edu.jcourse.dto;
 import lombok.Builder;
 
 @Builder
-public record ReceiveReviewDTO(Long id,
-                               ReceiveMovieReviewDTO movie,
-                               ReceiveUserDTO user,
+public record ReceiveReviewDto(Long id,
+                               ReceiveMovieReviewDto movie,
+                               ReceiveUserDto user,
                                String reviewText,
                                Short rate) {
 }

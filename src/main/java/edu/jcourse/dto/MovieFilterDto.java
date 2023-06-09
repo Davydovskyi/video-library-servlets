@@ -3,7 +3,7 @@ package edu.jcourse.dto;
 import lombok.Builder;
 
 @Builder
-public record MovieFilterDTO(int limit,
+public record MovieFilterDto(int limit,
                              int offset,
                              String title,
                              String releaseYear,

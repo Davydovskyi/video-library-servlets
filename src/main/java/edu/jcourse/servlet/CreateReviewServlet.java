@@ -1,12 +1,11 @@
 package edu.jcourse.servlet;
 
-import edu.jcourse.dto.CreateReviewDTO;
-import edu.jcourse.dto.ReceiveUserDTO;
+import edu.jcourse.dto.CreateReviewDto;
+import edu.jcourse.dto.ReceiveUserDto;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.exception.ValidationException;
 import edu.jcourse.service.ReviewService;
 import edu.jcourse.service.ServiceProvider;
-import edu.jcourse.util.ConnectionBuilder;
 import edu.jcourse.util.UrlPath;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -29,9 +28,9 @@ public class CreateReviewServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String movieId = req.getPathInfo().split("/")[1];
-        CreateReviewDTO createReviewDTO = CreateReviewDTO.builder()
+        CreateReviewDto createReviewDTO = CreateReviewDto.builder()
                 .moveId(movieId)
-                .userId(((ReceiveUserDTO) req.getSession().getAttribute("user")).id())
+                .userId(((ReceiveUserDto) req.getSession().getAttribute("user")).id())
                 .reviewText(req.getParameter("review"))
                 .rate(req.getParameter("rate"))
                 .build();

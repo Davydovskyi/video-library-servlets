@@ -1,9 +1,9 @@
 package edu.jcourse.dao.impl;
 
-import edu.jcourse.dao.DAOProvider;
-import edu.jcourse.dao.MovieDAO;
-import edu.jcourse.dao.ReviewDAO;
-import edu.jcourse.dao.UserDAO;
+import edu.jcourse.dao.DaoProvider;
+import edu.jcourse.dao.MovieDao;
+import edu.jcourse.dao.ReviewDao;
+import edu.jcourse.dao.UserDao;
 import edu.jcourse.entity.Movie;
 import edu.jcourse.entity.Review;
 import edu.jcourse.entity.User;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ReviewDAOImpl implements ReviewDAO {
+public class ReviewDaoImpl implements ReviewDao {
 
     private static final String FIND_ALL_SQL = """
             SELECT review_id,
@@ -155,13 +155,13 @@ public class ReviewDAOImpl implements ReviewDAO {
     }
 
     private void setUser(Review review, ResultSet resultSet) throws SQLException, DAOException {
-        UserDAO userDAO = DAOProvider.getInstance().getUserDAO();
+        UserDao userDAO = DaoProvider.getInstance().getUserDao();
         Optional<User> user = userDAO.findById(review.getUser().getId(), resultSet.getStatement().getConnection());
         user.ifPresent(review::setUser);
     }
 
     private void setMovie(Review review, ResultSet resultSet) throws DAOException, SQLException {
-        MovieDAO movieDAO = DAOProvider.getInstance().getMovieDAO();
+        MovieDao movieDAO = DaoProvider.getInstance().getMovieDao();
         Optional<Movie> movie = movieDAO.findById(review.getMovie().getId(), resultSet.getStatement().getConnection());
         movie.ifPresent(review::setMovie);
     }

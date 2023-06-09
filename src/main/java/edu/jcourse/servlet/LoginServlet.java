@@ -1,13 +1,12 @@
 package edu.jcourse.servlet;
 
-import edu.jcourse.dto.LoginUserDTO;
-import edu.jcourse.dto.ReceiveUserDTO;
+import edu.jcourse.dto.LoginUserDto;
+import edu.jcourse.dto.ReceiveUserDto;
 import edu.jcourse.entity.Role;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.exception.ValidationException;
 import edu.jcourse.service.ServiceProvider;
 import edu.jcourse.service.UserService;
-import edu.jcourse.util.ConnectionBuilder;
 import edu.jcourse.util.JSPHelper;
 import edu.jcourse.util.UrlPath;
 import jakarta.servlet.ServletException;
@@ -32,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        LoginUserDTO loginUserDTO = LoginUserDTO.builder()
+        LoginUserDto loginUserDTO = LoginUserDto.builder()
                 .email(req.getParameter("email"))
                 .password(req.getParameter("password"))
                 .build();
@@ -55,7 +54,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     @SneakyThrows
-    private void onLoginSuccess(ReceiveUserDTO receiveUserDTO, HttpServletRequest req, HttpServletResponse resp) {
+    private void onLoginSuccess(ReceiveUserDto receiveUserDTO, HttpServletRequest req, HttpServletResponse resp) {
         req.getSession().setAttribute("user", receiveUserDTO);
         if (receiveUserDTO.role() == Role.USER) {
             resp.sendRedirect(UrlPath.MOVIES);

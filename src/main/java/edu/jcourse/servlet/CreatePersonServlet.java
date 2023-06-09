@@ -1,7 +1,7 @@
 package edu.jcourse.servlet;
 
-import edu.jcourse.dto.CreatePersonDTO;
-import edu.jcourse.dto.ReceivePersonDTO;
+import edu.jcourse.dto.CreatePersonDto;
+import edu.jcourse.dto.ReceivePersonDto;
 import edu.jcourse.entity.Person;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.exception.ValidationException;
@@ -10,7 +10,6 @@ import edu.jcourse.mapper.impl.PersonMapper;
 import edu.jcourse.service.PersonService;
 import edu.jcourse.service.ServiceProvider;
 import edu.jcourse.util.CodeUtil;
-import edu.jcourse.util.ConnectionBuilder;
 import edu.jcourse.util.UrlPath;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -35,7 +34,7 @@ public class CreatePersonServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CreatePersonDTO createPersonDTO = CreatePersonDTO.builder()
+        CreatePersonDto createPersonDTO = CreatePersonDto.builder()
                 .name(req.getParameter("name"))
                 .birthDate(req.getParameter("birthday"))
                 .build();
@@ -43,9 +42,9 @@ public class CreatePersonServlet extends HttpServlet {
         try {
             Person person = personService.create(createPersonDTO);
             req.setAttribute("success", CodeUtil.SUCCESS_ADD_CODE);
-            CopyOnWriteArrayList<ReceivePersonDTO> members = (CopyOnWriteArrayList<ReceivePersonDTO>) getServletContext().getAttribute("filmMembers");
+            CopyOnWriteArrayList<ReceivePersonDto> members = (CopyOnWriteArrayList<ReceivePersonDto>) getServletContext().getAttribute("filmMembers");
             members.add(personMapper.mapFrom(person));
-            members.sort(Comparator.comparing(ReceivePersonDTO::personData));
+            members.sort(Comparator.comparing(ReceivePersonDto::personData));
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         } catch (ValidationException e) {

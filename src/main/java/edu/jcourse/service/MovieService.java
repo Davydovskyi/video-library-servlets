@@ -1,8 +1,8 @@
 package edu.jcourse.service;
 
-import edu.jcourse.dto.CreateMovieDTO;
-import edu.jcourse.dto.MovieFilterDTO;
-import edu.jcourse.dto.ReceiveMovieDTO;
+import edu.jcourse.dto.CreateMovieDto;
+import edu.jcourse.dto.MovieFilterDto;
+import edu.jcourse.dto.ReceiveMovieDto;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.exception.ValidationException;
 
@@ -11,11 +11,11 @@ import java.util.Optional;
 
 public interface MovieService {
 
-    Long create(CreateMovieDTO createMovieDTO) throws ServiceException, ValidationException;
+    Long create(CreateMovieDto createMovieDTO) throws ServiceException, ValidationException;
 
-    List<ReceiveMovieDTO> findMovies(MovieFilterDTO movieFilterDTO) throws ServiceException, ValidationException;
+    List<ReceiveMovieDto> findMovies(MovieFilterDto movieFilterDTO) throws ServiceException, ValidationException;
 
-    Optional<ReceiveMovieDTO> findById(Long id) throws ServiceException;
+    Optional<ReceiveMovieDto> findById(Long id) throws ServiceException;
 
-    List<ReceiveMovieDTO> findByPersonId(Long personId) throws ServiceException;
+    List<ReceiveMovieDto> findByPersonId(Long personId) throws ServiceException;
 }

@@ -1,10 +1,10 @@
 package edu.jcourse.service.impl;
 
-import edu.jcourse.dao.DAOProvider;
-import edu.jcourse.dao.MovieDAO;
-import edu.jcourse.dto.CreateMovieDTO;
-import edu.jcourse.dto.MovieFilterDTO;
-import edu.jcourse.dto.ReceiveMovieDTO;
+import edu.jcourse.dao.DaoProvider;
+import edu.jcourse.dao.MovieDao;
+import edu.jcourse.dto.CreateMovieDto;
+import edu.jcourse.dto.MovieFilterDto;
+import edu.jcourse.dto.ReceiveMovieDto;
 import edu.jcourse.entity.Movie;
 import edu.jcourse.exception.DAOException;
 import edu.jcourse.exception.ServiceException;
@@ -23,15 +23,15 @@ import java.util.Optional;
 
 public class MovieServiceImpl implements MovieService {
 
-    private final MovieDAO movieDAO = DAOProvider.getInstance().getMovieDAO();
+    private final MovieDao movieDAO = DaoProvider.getInstance().getMovieDao();
     private final CreateMovieMapper createMovieMapper = MapperProvider.getInstance().getCreateMovieMapper();
     private final CreateMovieValidator createMovieValidator = ValidatorProvider.getInstance().getCreateMovieValidator();
     private final MovieFilterValidation movieFilterValidation = ValidatorProvider.getInstance().getMovieFilterValidation();
     private final MovieMapper movieMapper = MapperProvider.getInstance().getMovieMapper();
 
     @Override
-    public Long create(CreateMovieDTO createMovieDTO) throws ServiceException, ValidationException {
-        ValidationResult validationResult = createMovieValidator.isValid(createMovieDTO);
+    public Long create(CreateMovieDto createMovieDTO) throws ServiceException, ValidationException {
+        ValidationResult validationResult = createMovieValidator.validate(createMovieDTO);
         if (!validationResult.isValid()) {
             throw new ValidationException(validationResult.getErrors());
         }
@@ -45,8 +45,8 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<ReceiveMovieDTO> findMovies(MovieFilterDTO movieFilterDTO) throws ServiceException, ValidationException {
-        ValidationResult validationResult = movieFilterValidation.isValid(movieFilterDTO);
+    public List<ReceiveMovieDto> findMovies(MovieFilterDto movieFilterDTO) throws ServiceException, ValidationException {
+        ValidationResult validationResult = movieFilterValidation.validate(movieFilterDTO);
         if (!validationResult.isValid()) {
             throw new ValidationException(validationResult.getErrors());
         }
@@ -62,7 +62,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Optional<ReceiveMovieDTO> findById(Long id) throws ServiceException {
+    public Optional<ReceiveMovieDto> findById(Long id) throws ServiceException {
         try {
             Optional<Movie> movie = movieDAO.findById(id);
             return movie.map(movieMapper::mapFrom);
@@ -72,7 +72,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<ReceiveMovieDTO> findByPersonId(Long personId) throws ServiceException {
+    public List<ReceiveMovieDto> findByPersonId(Long personId) throws ServiceException {
         try {
             List<Movie> movies = movieDAO.findAllByPersonId(personId);
             return movies.stream()

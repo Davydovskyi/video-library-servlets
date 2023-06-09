@@ -3,8 +3,8 @@ package edu.jcourse.dto;
 import lombok.Builder;
 
 @Builder
-public record ReceiveMoviePersonDTO(Long id,
+public record ReceiveMoviePersonDto(Long id,
                                     Long movieId,
-                                    ReceivePersonDTO person,
+                                    ReceivePersonDto person,
                                     String personRole) {
 }

@@ -1,12 +1,11 @@
 package edu.jcourse.servlet;
 
-import edu.jcourse.dto.ReceiveMovieDTO;
-import edu.jcourse.dto.ReceiveReviewDTO;
-import edu.jcourse.dto.ReceiveUserDTO;
+import edu.jcourse.dto.ReceiveMovieDto;
+import edu.jcourse.dto.ReceiveReviewDto;
+import edu.jcourse.dto.ReceiveUserDto;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.service.MovieService;
 import edu.jcourse.service.ServiceProvider;
-import edu.jcourse.util.ConnectionBuilder;
 import edu.jcourse.util.JSPHelper;
 import edu.jcourse.util.UrlPath;
 import jakarta.servlet.ServletException;
@@ -29,7 +28,7 @@ public class MovieDetailsServlet extends HttpServlet {
         Long movieId = Long.parseLong(req.getPathInfo().split("/")[1]);
         req.setAttribute("movieId", movieId);
         try {
-            Optional<ReceiveMovieDTO> movieDTO = movieService.findById(movieId);
+            Optional<ReceiveMovieDto> movieDTO = movieService.findById(movieId);
             movieDTO.ifPresentOrElse(receiveMovieDTO ->
                             setAttributes(req, receiveMovieDTO),
                     () -> resp.setStatus(404));
@@ -45,14 +44,14 @@ public class MovieDetailsServlet extends HttpServlet {
         doGet(req, resp);
     }
 
-    private boolean checkIfUserReviewExists(Long userId, List<ReceiveReviewDTO> reviews) {
+    private boolean checkIfUserReviewExists(Long userId, List<ReceiveReviewDto> reviews) {
         return reviews.stream()
                 .anyMatch(review -> review.user().id().equals(userId));
     }
 
-    private void setAttributes(HttpServletRequest req, ReceiveMovieDTO movieDTO) {
+    private void setAttributes(HttpServletRequest req, ReceiveMovieDto movieDTO) {
         req.setAttribute("movie", movieDTO);
-        boolean reviewExists = checkIfUserReviewExists(((ReceiveUserDTO) req.getSession().getAttribute("user")).id(), movieDTO.reviews());
+        boolean reviewExists = checkIfUserReviewExists(((ReceiveUserDto) req.getSession().getAttribute("user")).id(), movieDTO.reviews());
         if (reviewExists) {
             req.setAttribute("review_exists", "yes");
         }

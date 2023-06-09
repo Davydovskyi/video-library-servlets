@@ -3,6 +3,6 @@ package edu.jcourse.dto;
 import lombok.Builder;
 
 @Builder
-public record CreateMoviePersonDTO(String personId,
+public record CreateMoviePersonDto(String personId,
                                    String personRole) {
 }

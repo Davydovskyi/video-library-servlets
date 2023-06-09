@@ -1,6 +1,6 @@
 package edu.jcourse.servlet;
 
-import edu.jcourse.dto.ReceiveMovieDTO;
+import edu.jcourse.dto.ReceiveMovieDto;
 import edu.jcourse.service.DownloadService;
 import edu.jcourse.service.ServiceProvider;
 import edu.jcourse.util.UrlPath;
@@ -27,7 +27,7 @@ public class DownloadServlet extends HttpServlet {
         resp.setHeader("Content-Disposition", "attachment; filename=\"result.csv\"");
         resp.setContentType("text/csv");
 
-        List<ReceiveMovieDTO> movies = (List<ReceiveMovieDTO>) req.getSession().getAttribute(attributeName);
+        List<ReceiveMovieDto> movies = (List<ReceiveMovieDto>) req.getSession().getAttribute(attributeName);
 
         try (ServletOutputStream stream = resp.getOutputStream();
              InputStream inputStream = downloadService.get(movies)) {

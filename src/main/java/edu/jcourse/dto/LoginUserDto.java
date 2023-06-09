@@ -3,6 +3,6 @@ package edu.jcourse.dto;
 import lombok.Builder;
 
 @Builder
-public record LoginUserDTO(String email,
+public record LoginUserDto(String email,
                            String password) {
 }

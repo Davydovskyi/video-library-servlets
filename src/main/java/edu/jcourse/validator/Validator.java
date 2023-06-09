@@ -4,5 +4,5 @@ import edu.jcourse.exception.ServiceException;
 
 public interface Validator<T> {
 
-    ValidationResult isValid(T t) throws ServiceException;
+    ValidationResult validate(T t) throws ServiceException;
 }

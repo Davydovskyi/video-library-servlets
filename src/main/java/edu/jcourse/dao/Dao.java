@@ -5,7 +5,7 @@ import edu.jcourse.exception.DAOException;
 import java.util.List;
 import java.util.Optional;
 
-public interface DAO<K, E> {
+public interface Dao<K, E> {
 
     boolean delete(K id) throws DAOException;
 

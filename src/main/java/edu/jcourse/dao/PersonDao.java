@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public interface PersonDAO extends DAO<Long, Person> {
+public interface PersonDao extends Dao<Long, Person> {
 
     Optional<Person> findByNameAndBirthDate(String name, LocalDate birthDate) throws DAOException;
 

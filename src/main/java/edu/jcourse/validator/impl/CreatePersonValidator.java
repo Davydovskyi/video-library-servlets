@@ -1,8 +1,8 @@
 package edu.jcourse.validator.impl;
 
-import edu.jcourse.dao.DAOProvider;
-import edu.jcourse.dao.PersonDAO;
-import edu.jcourse.dto.CreatePersonDTO;
+import edu.jcourse.dao.DaoProvider;
+import edu.jcourse.dao.PersonDao;
+import edu.jcourse.dto.CreatePersonDto;
 import edu.jcourse.entity.Person;
 import edu.jcourse.exception.DAOException;
 import edu.jcourse.exception.ServiceException;
@@ -15,15 +15,23 @@ import edu.jcourse.validator.Validator;
 
 import java.util.Optional;
 
-public class CreatePersonValidator implements Validator<CreatePersonDTO> {
+public class CreatePersonValidator implements Validator<CreatePersonDto> {
 
-    private final PersonDAO personDAO = DAOProvider.getInstance().getPersonDAO();
+    private final PersonDao personDAO;
+
+    public CreatePersonValidator() {
+        personDAO = DaoProvider.getInstance().getPersonDao();
+    }
+
+    public CreatePersonValidator(PersonDao personDAO) {
+        this.personDAO = personDAO;
+    }
 
     @Override
-    public ValidationResult isValid(CreatePersonDTO createPersonDTO) throws ServiceException {
+    public ValidationResult validate(CreatePersonDto createPersonDTO) throws ServiceException {
         ValidationResult validationResult = new ValidationResult();
         CommonValidator.nameValidation(validationResult, createPersonDTO.name());
-        CommonValidator.birthDateValidation(validationResult, createPersonDTO.birthDate());
+        CommonValidator.birthdayValidation(validationResult, createPersonDTO.birthDate());
 
         if (validationResult.isValid()) {
             checkForDuplicate(validationResult, createPersonDTO.name(), createPersonDTO.birthDate());

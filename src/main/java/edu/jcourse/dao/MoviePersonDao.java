@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface MoviePersonDAO extends DAO<Long, MoviePerson> {
+public interface MoviePersonDao extends Dao<Long, MoviePerson> {
 
     MoviePerson save(MoviePerson moviePerson, Connection connection) throws SQLException;
 

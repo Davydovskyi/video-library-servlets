@@ -1,10 +1,10 @@
 package edu.jcourse.dao.impl;
 
-import edu.jcourse.dao.DAOProvider;
-import edu.jcourse.dao.MovieDAO;
-import edu.jcourse.dao.MoviePersonDAO;
-import edu.jcourse.dao.ReviewDAO;
-import edu.jcourse.dto.MovieFilterDTO;
+import edu.jcourse.dao.DaoProvider;
+import edu.jcourse.dao.MovieDao;
+import edu.jcourse.dao.MoviePersonDao;
+import edu.jcourse.dao.ReviewDao;
+import edu.jcourse.dto.MovieFilterDto;
 import edu.jcourse.entity.Genre;
 import edu.jcourse.entity.Movie;
 import edu.jcourse.entity.MoviePerson;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class MovieDAOImpl implements MovieDAO {
+public class MovieDaoImpl implements MovieDao {
 
     private static final String FIND_ALL_SQL = """
             SELECT DISTINCT m.movie_id,
@@ -61,7 +61,7 @@ public class MovieDAOImpl implements MovieDAO {
         try (Connection connection = ConnectionBuilder.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
 
-            MoviePersonDAO moviePersonDAO = DAOProvider.getInstance().getMoviePersonDAO();
+            MoviePersonDao moviePersonDAO = DaoProvider.getInstance().getMoviePersonDao();
 
             connection.setAutoCommit(false);
 
@@ -147,7 +147,7 @@ public class MovieDAOImpl implements MovieDAO {
     }
 
     @Override
-    public List<Movie> findAll(MovieFilterDTO movieFilterDTO) throws DAOException {
+    public List<Movie> findAll(MovieFilterDto movieFilterDTO) throws DAOException {
         List<Movie> movies = new ArrayList<>();
 
         List<Object> params = new ArrayList<>();
@@ -243,14 +243,14 @@ public class MovieDAOImpl implements MovieDAO {
     }
 
     private void setMoviePersons(Movie movie, ResultSet resultSet) throws SQLException, DAOException {
-        MoviePersonDAO moviePersonDAO = DAOProvider.getInstance().getMoviePersonDAO();
+        MoviePersonDao moviePersonDAO = DaoProvider.getInstance().getMoviePersonDao();
         List<MoviePerson> moviePeople = moviePersonDAO.findAllByMovieId(movie.getId(), resultSet.getStatement().getConnection());
         movie.setMoviePersons(moviePeople);
         moviePeople.forEach(moviePerson -> moviePerson.setMovie(movie));
     }
 
     private void setReviews(Movie movie, ResultSet resultSet) throws SQLException, DAOException {
-        ReviewDAO reviewDAO = DAOProvider.getInstance().getReviewDAO();
+        ReviewDao reviewDAO = DaoProvider.getInstance().getReviewDao();
         List<Review> reviews = reviewDAO.findAllByMovieId(movie.getId(), resultSet.getStatement().getConnection());
         movie.setReviews(reviews);
         reviews.forEach(review -> review.setMovie(movie));

@@ -1,8 +1,8 @@
 package edu.jcourse.validator.impl;
 
-import edu.jcourse.dao.DAOProvider;
-import edu.jcourse.dao.UserDAO;
-import edu.jcourse.dto.CreateUserDTO;
+import edu.jcourse.dao.DaoProvider;
+import edu.jcourse.dao.UserDao;
+import edu.jcourse.dto.CreateUserDto;
 import edu.jcourse.entity.Gender;
 import edu.jcourse.entity.Role;
 import edu.jcourse.exception.DAOException;
@@ -15,26 +15,34 @@ import edu.jcourse.validator.ValidationResult;
 import edu.jcourse.validator.Validator;
 import jakarta.servlet.http.Part;
 
-public class CreateUserValidator implements Validator<CreateUserDTO> {
+public class CreateUserValidator implements Validator<CreateUserDto> {
     private static final Long IMAGE_SIZE = 1024L * 1024;
 
-    public final UserDAO userDAO = DAOProvider.getInstance().getUserDAO();
+    public final UserDao userDAO;
+
+    public CreateUserValidator() {
+        userDAO = DaoProvider.getInstance().getUserDao();
+    }
+
+    public CreateUserValidator(UserDao userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
-    public ValidationResult isValid(CreateUserDTO createUserDTO) throws ServiceException {
+    public ValidationResult validate(CreateUserDto createUserDTO) throws ServiceException {
         ValidationResult validationResult = new ValidationResult();
 
         CommonValidator.emailValidation(validationResult, createUserDTO.email());
         CommonValidator.passwordValidation(validationResult, createUserDTO.password());
         CommonValidator.nameValidation(validationResult, createUserDTO.name());
-        CommonValidator.birthDateValidation(validationResult, createUserDTO.birthDate());
+        CommonValidator.birthdayValidation(validationResult, createUserDTO.birthDate());
 
         genderValidation(validationResult, createUserDTO.gender());
         roleValidation(validationResult, createUserDTO.role());
         imageValidation(validationResult, createUserDTO.partImage());
 
         if (validationResult.isValid()) {
-            emailValidation(validationResult, createUserDTO.email());
+            checkEmailDuplicate(validationResult, createUserDTO.email());
         }
 
         return validationResult;
@@ -52,7 +60,7 @@ public class CreateUserValidator implements Validator<CreateUserDTO> {
         }
     }
 
-    private void emailValidation(ValidationResult validationResult, String email) throws ServiceException {
+    private void checkEmailDuplicate(ValidationResult validationResult, String email) throws ServiceException {
         try {
             if (userDAO.findByEmail(email).isPresent()) {
                 validationResult.add(Error.of(CodeUtil.EXIST_EMAIL_CODE, MessageUtil.EMAIL_EXISTS_MESSAGE));

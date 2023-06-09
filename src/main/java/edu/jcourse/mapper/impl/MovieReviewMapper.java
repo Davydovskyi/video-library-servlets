@@ -1,17 +1,17 @@
 package edu.jcourse.mapper.impl;
 
-import edu.jcourse.dto.ReceiveMovieReviewDTO;
+import edu.jcourse.dto.ReceiveMovieReviewDto;
 import edu.jcourse.entity.Movie;
 import edu.jcourse.mapper.Mapper;
 
 import java.util.ResourceBundle;
 
-public class MovieReviewMapper implements Mapper<Movie, ReceiveMovieReviewDTO> {
+public class MovieReviewMapper implements Mapper<Movie, ReceiveMovieReviewDto> {
     private final ResourceBundle resourceBundle = ResourceBundle.getBundle("translations_en_US");
 
     @Override
-    public ReceiveMovieReviewDTO mapFrom(Movie movie) {
-        return ReceiveMovieReviewDTO.builder()
+    public ReceiveMovieReviewDto mapFrom(Movie movie) {
+        return ReceiveMovieReviewDto.builder()
                 .movieId(movie.getId())
                 .movieData("%s(%s, %d, %s)".formatted(
                         movie.getTitle(),

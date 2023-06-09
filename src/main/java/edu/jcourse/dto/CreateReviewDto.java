@@ -3,7 +3,7 @@ package edu.jcourse.dto;
 import lombok.Builder;
 
 @Builder
-public record CreateReviewDTO(String moveId,
+public record CreateReviewDto(String moveId,
                               Long userId,
                               String reviewText,
                               String rate) {

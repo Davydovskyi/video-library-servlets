@@ -1,10 +1,10 @@
 package edu.jcourse.service.impl;
 
-import edu.jcourse.dao.DAOProvider;
-import edu.jcourse.dao.UserDAO;
-import edu.jcourse.dto.CreateUserDTO;
-import edu.jcourse.dto.LoginUserDTO;
-import edu.jcourse.dto.ReceiveUserDTO;
+import edu.jcourse.dao.DaoProvider;
+import edu.jcourse.dao.UserDao;
+import edu.jcourse.dto.CreateUserDto;
+import edu.jcourse.dto.LoginUserDto;
+import edu.jcourse.dto.ReceiveUserDto;
 import edu.jcourse.entity.User;
 import edu.jcourse.exception.DAOException;
 import edu.jcourse.exception.ServiceException;
@@ -25,15 +25,15 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
-    private final UserDAO userDAO = DAOProvider.getInstance().getUserDAO();
+    private final UserDao userDAO = DaoProvider.getInstance().getUserDao();
     private final CreateUserValidator createUserValidator = ValidatorProvider.getInstance().getCreateUserValidator();
     private final CreateUserMapper createUserMapper = MapperProvider.getInstance().getCreateUserMapper();
     private final UserMapper userMapper = MapperProvider.getInstance().getUserMapper();
     private final LoginValidator loginValidator = ValidatorProvider.getInstance().getLoginValidator();
 
     @Override
-    public Long create(CreateUserDTO createUserDTO) throws ServiceException, ValidationException {
-        ValidationResult validationResult = createUserValidator.isValid(createUserDTO);
+    public Long create(CreateUserDto createUserDTO) throws ServiceException, ValidationException {
+        ValidationResult validationResult = createUserValidator.validate(createUserDTO);
         if (!validationResult.isValid()) {
             throw new ValidationException(validationResult.getErrors());
         }
@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<ReceiveUserDTO> login(LoginUserDTO loginUserDTO) throws ServiceException, ValidationException {
-        ValidationResult validationResult = loginValidator.isValid(loginUserDTO);
+    public Optional<ReceiveUserDto> login(LoginUserDto loginUserDTO) throws ServiceException, ValidationException {
+        ValidationResult validationResult = loginValidator.validate(loginUserDTO);
         if (!validationResult.isValid()) {
             throw new ValidationException(validationResult.getErrors());
         }
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<ReceiveUserDTO> findById(Long id) throws ServiceException {
+    public Optional<ReceiveUserDto> findById(Long id) throws ServiceException {
         try {
             Optional<User> user = userDAO.findById(id);
             return user.map(userMapper::mapFrom);

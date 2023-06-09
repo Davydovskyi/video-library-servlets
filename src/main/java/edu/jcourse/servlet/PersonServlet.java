@@ -1,12 +1,11 @@
 package edu.jcourse.servlet;
 
-import edu.jcourse.dto.ReceiveMovieDTO;
-import edu.jcourse.dto.ReceivePersonDTO;
+import edu.jcourse.dto.ReceiveMovieDto;
+import edu.jcourse.dto.ReceivePersonDto;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.service.MovieService;
 import edu.jcourse.service.PersonService;
 import edu.jcourse.service.ServiceProvider;
-import edu.jcourse.util.ConnectionBuilder;
 import edu.jcourse.util.JSPHelper;
 import edu.jcourse.util.UrlPath;
 import jakarta.servlet.ServletException;
@@ -30,7 +29,7 @@ public class PersonServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long personId = Long.parseLong(req.getPathInfo().split("/")[1]);
         try {
-            Optional<ReceivePersonDTO> personDTO = personService.findById(personId);
+            Optional<ReceivePersonDto> personDTO = personService.findById(personId);
             personDTO.ifPresentOrElse(person ->
                             personExists(person, req),
                     () -> resp.setStatus(404));
@@ -42,9 +41,9 @@ public class PersonServlet extends HttpServlet {
     }
 
     @SneakyThrows
-    private void personExists(ReceivePersonDTO personDTO, HttpServletRequest req) {
+    private void personExists(ReceivePersonDto personDTO, HttpServletRequest req) {
         req.setAttribute("person", personDTO);
-        List<ReceiveMovieDTO> movies = movieService.findByPersonId(personDTO.id());
+        List<ReceiveMovieDto> movies = movieService.findByPersonId(personDTO.id());
         req.setAttribute("movies", movies);
         req.getSession().setAttribute("person-movies", movies);
     }

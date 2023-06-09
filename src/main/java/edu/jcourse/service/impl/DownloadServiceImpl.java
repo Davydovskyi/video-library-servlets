@@ -1,6 +1,6 @@
 package edu.jcourse.service.impl;
 
-import edu.jcourse.dto.ReceiveMovieDTO;
+import edu.jcourse.dto.ReceiveMovieDto;
 import edu.jcourse.service.DownloadService;
 
 import java.io.ByteArrayInputStream;
@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 
 public class DownloadServiceImpl implements DownloadService {
     @Override
-    public InputStream get(List<ReceiveMovieDTO> movies) {
+    public InputStream get(List<ReceiveMovieDto> movies) {
         byte[] bytes = movies.stream()
-                .map(ReceiveMovieDTO::movieData)
+                .map(ReceiveMovieDto::movieData)
                 .collect(Collectors.joining("\n"))
                 .getBytes();
         return new ByteArrayInputStream(bytes);

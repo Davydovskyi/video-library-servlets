@@ -1,13 +1,12 @@
 package edu.jcourse.servlet;
 
-import edu.jcourse.dto.MovieFilterDTO;
-import edu.jcourse.dto.ReceiveMovieDTO;
+import edu.jcourse.dto.MovieFilterDto;
+import edu.jcourse.dto.ReceiveMovieDto;
 import edu.jcourse.entity.Genre;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.exception.ValidationException;
 import edu.jcourse.service.MovieService;
 import edu.jcourse.service.ServiceProvider;
-import edu.jcourse.util.ConnectionBuilder;
 import edu.jcourse.util.JSPHelper;
 import edu.jcourse.util.UrlPath;
 import jakarta.servlet.ServletException;
@@ -33,7 +32,7 @@ public class MovieServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        MovieFilterDTO movieFilterDTO = MovieFilterDTO.builder()
+        MovieFilterDto movieFilterDTO = MovieFilterDto.builder()
                 .title(req.getParameter("title"))
                 .releaseYear(req.getParameter("release_year"))
                 .country(req.getParameter("country"))
@@ -41,9 +40,10 @@ public class MovieServlet extends HttpServlet {
                 .limit(Integer.parseInt(req.getParameter("limit")))
                 .offset(Integer.parseInt(req.getParameter("offset")))
                 .build();
+        System.out.println(movieFilterDTO);
 
         try {
-            List<ReceiveMovieDTO> movieDTOS = movieService.findMovies(movieFilterDTO);
+            List<ReceiveMovieDto> movieDTOS = movieService.findMovies(movieFilterDTO);
             req.setAttribute("movies", movieDTOS);
             req.getSession().setAttribute("movies", movieDTOS);
         } catch (ServiceException e) {

@@ -1,6 +1,6 @@
 package edu.jcourse.dao.impl;
 
-import edu.jcourse.dao.PersonDAO;
+import edu.jcourse.dao.PersonDao;
 import edu.jcourse.entity.Person;
 import edu.jcourse.exception.DAOException;
 import edu.jcourse.util.ConnectionBuilder;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class PersonDAOImpl implements PersonDAO {
+public class PersonDaoImpl implements PersonDao {
 
     private static final String SAVE_SQL = """
             INSERT INTO person(person_name, person_birth_date)

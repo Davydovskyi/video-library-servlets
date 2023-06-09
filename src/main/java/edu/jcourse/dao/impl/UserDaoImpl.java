@@ -1,6 +1,6 @@
 package edu.jcourse.dao.impl;
 
-import edu.jcourse.dao.UserDAO;
+import edu.jcourse.dao.UserDao;
 import edu.jcourse.entity.Gender;
 import edu.jcourse.entity.Role;
 import edu.jcourse.entity.User;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDAOImpl implements UserDAO {
+public class UserDaoImpl implements UserDao {
 
     private static final String FIND_ALL_SQL = """
             SELECT user_id,

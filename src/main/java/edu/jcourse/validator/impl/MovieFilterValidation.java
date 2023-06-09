@@ -1,13 +1,12 @@
 package edu.jcourse.validator.impl;
 
-import edu.jcourse.dto.MovieFilterDTO;
-import edu.jcourse.exception.ServiceException;
+import edu.jcourse.dto.MovieFilterDto;
 import edu.jcourse.validator.ValidationResult;
 import edu.jcourse.validator.Validator;
 
-public class MovieFilterValidation implements Validator<MovieFilterDTO> {
+public class MovieFilterValidation implements Validator<MovieFilterDto> {
     @Override
-    public ValidationResult isValid(MovieFilterDTO movieFilterDTO) throws ServiceException {
+    public ValidationResult validate(MovieFilterDto movieFilterDTO) {
         ValidationResult validationResult = new ValidationResult();
         releaseYearValidation(validationResult, movieFilterDTO.releaseYear());
         genreValidation(validationResult, movieFilterDTO.genre());
@@ -15,7 +14,7 @@ public class MovieFilterValidation implements Validator<MovieFilterDTO> {
     }
 
     private void releaseYearValidation(ValidationResult validationResult, String releaseYear) {
-        if (!releaseYear.isBlank()) {
+        if (releaseYear != null && !releaseYear.isBlank()) {
             CommonValidator.releaseYearValidation(validationResult, releaseYear);
         }
     }

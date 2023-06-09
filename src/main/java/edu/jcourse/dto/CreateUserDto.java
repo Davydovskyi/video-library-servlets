@@ -4,7 +4,7 @@ import jakarta.servlet.http.Part;
 import lombok.Builder;
 
 @Builder
-public record CreateUserDTO(String name,
+public record CreateUserDto(String name,
                             String birthDate,
                             Part partImage,
                             String email,

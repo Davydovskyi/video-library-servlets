@@ -1,7 +1,7 @@
 package edu.jcourse.servlet;
 
-import edu.jcourse.dto.CreateUserDTO;
-import edu.jcourse.dto.ReceiveUserDTO;
+import edu.jcourse.dto.CreateUserDto;
+import edu.jcourse.dto.ReceiveUserDto;
 import edu.jcourse.entity.Gender;
 import edu.jcourse.entity.Role;
 import edu.jcourse.exception.ServiceException;
@@ -9,7 +9,6 @@ import edu.jcourse.exception.ValidationException;
 import edu.jcourse.service.ServiceProvider;
 import edu.jcourse.service.UserService;
 import edu.jcourse.util.CodeUtil;
-import edu.jcourse.util.ConnectionBuilder;
 import edu.jcourse.util.JSPHelper;
 import edu.jcourse.util.UrlPath;
 import jakarta.servlet.ServletException;
@@ -37,7 +36,7 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CreateUserDTO createUserDTO = CreateUserDTO.builder()
+        CreateUserDto createUserDTO = CreateUserDto.builder()
                 .name(req.getParameter("user_name"))
                 .birthDate(req.getParameter("birthday"))
                 .partImage(req.getPart("image"))
@@ -49,7 +48,7 @@ public class RegistrationServlet extends HttpServlet {
 
         try {
             userService.create(createUserDTO);
-            ReceiveUserDTO user = (ReceiveUserDTO) req.getSession().getAttribute("user");
+            ReceiveUserDto user = (ReceiveUserDto) req.getSession().getAttribute("user");
 
             if (user != null && user.role() == Role.SUPER_ADMIN) {
                 req.setAttribute("success", CodeUtil.SUCCESS_ADD_CODE);

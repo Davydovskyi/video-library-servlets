@@ -1,8 +1,8 @@
 package edu.jcourse.service;
 
-import edu.jcourse.dto.CreateUserDTO;
-import edu.jcourse.dto.LoginUserDTO;
-import edu.jcourse.dto.ReceiveUserDTO;
+import edu.jcourse.dto.CreateUserDto;
+import edu.jcourse.dto.LoginUserDto;
+import edu.jcourse.dto.ReceiveUserDto;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.exception.ValidationException;
 
@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public interface UserService {
 
-    Long create(CreateUserDTO createUserDTO) throws ServiceException, ValidationException;
+    Long create(CreateUserDto createUserDTO) throws ServiceException, ValidationException;
 
-    Optional<ReceiveUserDTO> login(LoginUserDTO loginUserDTO) throws ServiceException, ValidationException;
+    Optional<ReceiveUserDto> login(LoginUserDto loginUserDTO) throws ServiceException, ValidationException;
 
-    Optional<ReceiveUserDTO> findById(Long id) throws ServiceException;
+    Optional<ReceiveUserDto> findById(Long id) throws ServiceException;
 }

@@ -23,7 +23,7 @@ public class Config {
             return PROPERTIES.getProperty(name);
         }
 
-        try (InputStream resource = Config.class.getClassLoader().getResourceAsStream("config.properties")) {
+        try (InputStream resource = Config.class.getClassLoader().getResourceAsStream("application.properties")) {
             PROPERTIES.load(resource);
         }
         return PROPERTIES.getProperty(name);

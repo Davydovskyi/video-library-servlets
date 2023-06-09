@@ -1,14 +1,14 @@
 package edu.jcourse.validator.impl;
 
-import edu.jcourse.dto.LoginUserDTO;
+import edu.jcourse.dto.LoginUserDto;
 import edu.jcourse.validator.ValidationResult;
 import edu.jcourse.validator.Validator;
 
-public class LoginValidator implements Validator<LoginUserDTO> {
+public class LoginValidator implements Validator<LoginUserDto> {
     @Override
-    public ValidationResult isValid(LoginUserDTO loginUserDTO) {
+    public ValidationResult validate(LoginUserDto loginUserDTO) {
         ValidationResult validationResult = new ValidationResult();
-        CommonValidator.nameValidation(validationResult, loginUserDTO.email());
+        CommonValidator.emailValidation(validationResult, loginUserDTO.email());
         CommonValidator.passwordValidation(validationResult, loginUserDTO.password());
         return validationResult;
     }

@@ -1,8 +1,8 @@
 package edu.jcourse.validator.impl;
 
-import edu.jcourse.dao.DAOProvider;
-import edu.jcourse.dao.ReviewDAO;
-import edu.jcourse.dto.CreateReviewDTO;
+import edu.jcourse.dao.DaoProvider;
+import edu.jcourse.dao.ReviewDao;
+import edu.jcourse.dto.CreateReviewDto;
 import edu.jcourse.entity.Review;
 import edu.jcourse.exception.DAOException;
 import edu.jcourse.exception.ServiceException;
@@ -14,17 +14,25 @@ import edu.jcourse.validator.Validator;
 
 import java.util.Optional;
 
-public class CreateReviewValidator implements Validator<CreateReviewDTO> {
+public class CreateReviewValidator implements Validator<CreateReviewDto> {
 
-    private final ReviewDAO reviewDAO = DAOProvider.getInstance().getReviewDAO();
+    private final ReviewDao reviewDAO;
+
+    public CreateReviewValidator() {
+        reviewDAO = DaoProvider.getInstance().getReviewDao();
+    }
+
+    public CreateReviewValidator(ReviewDao reviewDAO) {
+        this.reviewDAO = reviewDAO;
+    }
 
     @Override
-    public ValidationResult isValid(CreateReviewDTO createReviewDTO) throws ServiceException {
+    public ValidationResult validate(CreateReviewDto createReviewDTO) throws ServiceException {
         ValidationResult validationResult = new ValidationResult();
         reviewTextValidation(validationResult, createReviewDTO.reviewText());
         rateValidation(validationResult, createReviewDTO.rate());
 
-        if (!validationResult.isValid()) {
+        if (validationResult.isValid()) {
             checkForDuplicate(validationResult, createReviewDTO.userId(), Long.parseLong(createReviewDTO.moveId()));
         }
         return validationResult;

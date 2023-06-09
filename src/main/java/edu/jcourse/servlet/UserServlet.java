@@ -1,7 +1,7 @@
 package edu.jcourse.servlet;
 
-import edu.jcourse.dto.ReceiveReviewDTO;
-import edu.jcourse.dto.ReceiveUserDTO;
+import edu.jcourse.dto.ReceiveReviewDto;
+import edu.jcourse.dto.ReceiveUserDto;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.service.ReviewService;
 import edu.jcourse.service.ServiceProvider;
@@ -30,7 +30,7 @@ public class UserServlet extends HttpServlet {
         Long userId = Long.parseLong(req.getPathInfo().split("/")[1]);
 
         try {
-            Optional<ReceiveUserDTO> userDTO = userService.findById(userId);
+            Optional<ReceiveUserDto> userDTO = userService.findById(userId);
             userDTO.ifPresentOrElse(user ->
                             userExists(user, req),
                     () -> resp.setStatus(404));
@@ -42,9 +42,9 @@ public class UserServlet extends HttpServlet {
     }
 
     @SneakyThrows
-    private void userExists(ReceiveUserDTO userDTO, HttpServletRequest request) {
+    private void userExists(ReceiveUserDto userDTO, HttpServletRequest request) {
         request.setAttribute("user", userDTO);
-        List<ReceiveReviewDTO> reviews = reviewService.findAllByUserId(userDTO.id());
+        List<ReceiveReviewDto> reviews = reviewService.findAllByUserId(userDTO.id());
         request.setAttribute("reviews", reviews);
     }
 }

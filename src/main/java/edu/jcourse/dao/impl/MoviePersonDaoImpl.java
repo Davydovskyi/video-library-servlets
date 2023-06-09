@@ -1,8 +1,8 @@
 package edu.jcourse.dao.impl;
 
-import edu.jcourse.dao.DAOProvider;
-import edu.jcourse.dao.MoviePersonDAO;
-import edu.jcourse.dao.PersonDAO;
+import edu.jcourse.dao.DaoProvider;
+import edu.jcourse.dao.MoviePersonDao;
+import edu.jcourse.dao.PersonDao;
 import edu.jcourse.entity.MoviePerson;
 import edu.jcourse.entity.Person;
 import edu.jcourse.entity.PersonRole;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MoviePersonDAOImpl implements MoviePersonDAO {
+public class MoviePersonDaoImpl implements MoviePersonDao {
     private static final String SAVE_SQL = """
             INSERT INTO movie_person(movie_id, person_id, person_role)
             VALUES (?, ?, ?);
@@ -105,7 +105,7 @@ public class MoviePersonDAOImpl implements MoviePersonDAO {
     }
 
     private void setPerson(MoviePerson moviePerson, ResultSet resultSet) throws SQLException, DAOException {
-        PersonDAO personDAO = DAOProvider.getInstance().getPersonDAO();
+        PersonDao personDAO = DaoProvider.getInstance().getPersonDao();
         Optional<Person> person = personDAO.findById(moviePerson.getPerson().getId(), resultSet.getStatement().getConnection());
         person.ifPresent(moviePerson::setPerson);
     }

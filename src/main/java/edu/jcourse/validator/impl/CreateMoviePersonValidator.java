@@ -1,6 +1,6 @@
 package edu.jcourse.validator.impl;
 
-import edu.jcourse.dto.CreateMoviePersonDTO;
+import edu.jcourse.dto.CreateMoviePersonDto;
 import edu.jcourse.entity.PersonRole;
 import edu.jcourse.util.CodeUtil;
 import edu.jcourse.util.MessageUtil;
@@ -8,9 +8,9 @@ import edu.jcourse.validator.Error;
 import edu.jcourse.validator.ValidationResult;
 import edu.jcourse.validator.Validator;
 
-public class CreateMoviePersonValidator implements Validator<CreateMoviePersonDTO> {
+public class CreateMoviePersonValidator implements Validator<CreateMoviePersonDto> {
     @Override
-    public ValidationResult isValid(CreateMoviePersonDTO createMoviePersonDTO) {
+    public ValidationResult validate(CreateMoviePersonDto createMoviePersonDTO) {
         ValidationResult validationResult = new ValidationResult();
         roleValidation(validationResult, createMoviePersonDTO.personRole());
         return validationResult;

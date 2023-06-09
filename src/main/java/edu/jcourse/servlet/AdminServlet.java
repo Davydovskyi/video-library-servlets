@@ -1,12 +1,11 @@
 package edu.jcourse.servlet;
 
-import edu.jcourse.dto.ReceivePersonDTO;
+import edu.jcourse.dto.ReceivePersonDto;
 import edu.jcourse.entity.Genre;
 import edu.jcourse.entity.PersonRole;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.service.PersonService;
 import edu.jcourse.service.ServiceProvider;
-import edu.jcourse.util.ConnectionBuilder;
 import edu.jcourse.util.JSPHelper;
 import edu.jcourse.util.UrlPath;
 import jakarta.servlet.ServletConfig;
@@ -29,8 +28,8 @@ public class AdminServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         try {
-            CopyOnWriteArrayList<ReceivePersonDTO> members = new CopyOnWriteArrayList<>(personService.findAll());
-            members.sort(Comparator.comparing(ReceivePersonDTO::personData));
+            CopyOnWriteArrayList<ReceivePersonDto> members = new CopyOnWriteArrayList<>(personService.findAll());
+            members.sort(Comparator.comparing(ReceivePersonDto::personData));
             config.getServletContext().setAttribute("filmMembers", members);
         } catch (ServiceException e) {
             throw new RuntimeException(e);

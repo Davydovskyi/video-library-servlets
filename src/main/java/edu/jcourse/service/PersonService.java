@@ -1,7 +1,7 @@
 package edu.jcourse.service;
 
-import edu.jcourse.dto.CreatePersonDTO;
-import edu.jcourse.dto.ReceivePersonDTO;
+import edu.jcourse.dto.CreatePersonDto;
+import edu.jcourse.dto.ReceivePersonDto;
 import edu.jcourse.entity.Person;
 import edu.jcourse.exception.ServiceException;
 import edu.jcourse.exception.ValidationException;
@@ -11,9 +11,9 @@ import java.util.Optional;
 
 public interface PersonService {
 
-    Person create(CreatePersonDTO createPersonDTO) throws ServiceException, ValidationException;
+    Person create(CreatePersonDto createPersonDTO) throws ServiceException, ValidationException;
 
-    List<ReceivePersonDTO> findAll() throws ServiceException;
+    List<ReceivePersonDto> findAll() throws ServiceException;
 
-    Optional<ReceivePersonDTO> findById(Long id) throws ServiceException;
+    Optional<ReceivePersonDto> findById(Long id) throws ServiceException;
 }

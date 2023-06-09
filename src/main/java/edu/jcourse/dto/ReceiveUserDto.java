@@ -7,7 +7,7 @@ import lombok.Builder;
 import java.time.LocalDate;
 
 @Builder
-public record ReceiveUserDTO(Long id,
+public record ReceiveUserDto(Long id,
                              String name,
                              LocalDate birthday,
                              String image,

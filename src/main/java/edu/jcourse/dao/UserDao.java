@@ -6,7 +6,7 @@ import edu.jcourse.exception.DAOException;
 import java.sql.Connection;
 import java.util.Optional;
 
-public interface UserDAO extends DAO<Long, User> {
+public interface UserDao extends Dao<Long, User> {
 
     Optional<User> findByEmail(String email) throws DAOException;
 

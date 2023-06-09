@@ -1,9 +1,9 @@
 package edu.jcourse.validator.impl;
 
-import edu.jcourse.dao.DAOProvider;
-import edu.jcourse.dao.MovieDAO;
-import edu.jcourse.dto.CreateMovieDTO;
-import edu.jcourse.dto.CreateMoviePersonDTO;
+import edu.jcourse.dao.DaoProvider;
+import edu.jcourse.dao.MovieDao;
+import edu.jcourse.dto.CreateMovieDto;
+import edu.jcourse.dto.CreateMoviePersonDto;
 import edu.jcourse.entity.Genre;
 import edu.jcourse.entity.Movie;
 import edu.jcourse.exception.DAOException;
@@ -18,12 +18,20 @@ import edu.jcourse.validator.ValidatorProvider;
 import java.util.Optional;
 import java.util.Set;
 
-public class CreateMovieValidator implements Validator<CreateMovieDTO> {
+public class CreateMovieValidator implements Validator<CreateMovieDto> {
 
-    private final MovieDAO movieDAO = DAOProvider.getInstance().getMovieDAO();
+    private final MovieDao movieDAO;
+
+    public CreateMovieValidator() {
+        movieDAO = DaoProvider.getInstance().getMovieDao();
+    }
+
+    public CreateMovieValidator(MovieDao movieDAO) {
+        this.movieDAO = movieDAO;
+    }
 
     @Override
-    public ValidationResult isValid(CreateMovieDTO createMovieDTO) throws ServiceException {
+    public ValidationResult validate(CreateMovieDto createMovieDTO) throws ServiceException {
         ValidationResult validationResult = new ValidationResult();
         titleValidation(validationResult, createMovieDTO.title());
         CommonValidator.releaseYearValidation(validationResult, createMovieDTO.releaseYear());
@@ -56,15 +64,15 @@ public class CreateMovieValidator implements Validator<CreateMovieDTO> {
         }
     }
 
-    private void moviePersonsValidation(ValidationResult validationResult, Set<CreateMoviePersonDTO> moviePersons) {
+    private void moviePersonsValidation(ValidationResult validationResult, Set<CreateMoviePersonDto> moviePersons) {
         if (moviePersons.isEmpty()) {
             validationResult.add(Error.of(CodeUtil.EMPTY_MOVIE_PERSONS_CODE, MessageUtil.MOVIE_PERSONS_EMPTY_MESSAGE));
         }
 
         CreateMoviePersonValidator createMoviePersonValidator = ValidatorProvider.getInstance().getCreateMoviePersonValidator();
 
-        for (CreateMoviePersonDTO moviePerson : moviePersons) {
-            ValidationResult personValidatorResult = createMoviePersonValidator.isValid(moviePerson);
+        for (CreateMoviePersonDto moviePerson : moviePersons) {
+            ValidationResult personValidatorResult = createMoviePersonValidator.validate(moviePerson);
             if (!personValidatorResult.isValid()) {
                 validationResult.getErrors().addAll(personValidatorResult.getErrors());
                 break;
@@ -72,7 +80,7 @@ public class CreateMovieValidator implements Validator<CreateMovieDTO> {
         }
     }
 
-    private void checkForDuplicate(ValidationResult validationResult, CreateMovieDTO createMovieDTO) throws ServiceException {
+    private void checkForDuplicate(ValidationResult validationResult, CreateMovieDto createMovieDTO) throws ServiceException {
         try {
             Optional<Movie> movie = movieDAO.findByAllFields(createMovieDTO.title(), Integer.parseInt(createMovieDTO.releaseYear()),
                     createMovieDTO.country(), Genre.valueOf(createMovieDTO.genre()));
