@@ -39,7 +39,6 @@ public class ConnectionBuilder {
             pool.add(proxyConnection);
             sourcePool.add(connection);
         }
-
         poolOpened = true;
     }
 
