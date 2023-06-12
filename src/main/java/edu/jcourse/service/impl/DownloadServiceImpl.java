@@ -11,6 +11,10 @@ import java.util.stream.Collectors;
 public class DownloadServiceImpl implements DownloadService {
     @Override
     public InputStream get(List<ReceiveMovieDto> movies) {
+        if (movies == null) {
+            return new ByteArrayInputStream(new byte[0]);
+        }
+
         byte[] bytes = movies.stream()
                 .map(ReceiveMovieDto::movieData)
                 .collect(Collectors.joining("\n"))

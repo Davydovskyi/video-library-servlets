@@ -23,11 +23,32 @@ import java.util.Optional;
 
 public class MovieServiceImpl implements MovieService {
 
-    private final MovieDao movieDAO = DaoProvider.getInstance().getMovieDao();
-    private final CreateMovieMapper createMovieMapper = MapperProvider.getInstance().getCreateMovieMapper();
-    private final CreateMovieValidator createMovieValidator = ValidatorProvider.getInstance().getCreateMovieValidator();
-    private final MovieFilterValidation movieFilterValidation = ValidatorProvider.getInstance().getMovieFilterValidation();
-    private final MovieMapper movieMapper = MapperProvider.getInstance().getMovieMapper();
+    private final MovieDao movieDAO;
+    private final CreateMovieMapper createMovieMapper;
+    private final CreateMovieValidator createMovieValidator;
+    private final MovieFilterValidation movieFilterValidation;
+    private final MovieMapper movieMapper;
+
+
+    public MovieServiceImpl() {
+        movieDAO = DaoProvider.getInstance().getMovieDao();
+        createMovieMapper = MapperProvider.getInstance().getCreateMovieMapper();
+        createMovieValidator = ValidatorProvider.getInstance().getCreateMovieValidator();
+        movieFilterValidation = ValidatorProvider.getInstance().getMovieFilterValidation();
+        movieMapper = MapperProvider.getInstance().getMovieMapper();
+    }
+
+    public MovieServiceImpl(MovieDao movieDAO,
+                            CreateMovieMapper createMovieMapper,
+                            CreateMovieValidator createMovieValidator,
+                            MovieFilterValidation movieFilterValidation,
+                            MovieMapper movieMapper) {
+        this.movieDAO = movieDAO;
+        this.createMovieMapper = createMovieMapper;
+        this.createMovieValidator = createMovieValidator;
+        this.movieFilterValidation = movieFilterValidation;
+        this.movieMapper = movieMapper;
+    }
 
     @Override
     public Long create(CreateMovieDto createMovieDTO) throws ServiceException, ValidationException {
