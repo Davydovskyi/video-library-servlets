@@ -20,10 +20,24 @@ import java.util.List;
 
 public class ReviewServiceImpl implements ReviewService {
 
-    private final ReviewDao reviewDAO = DaoProvider.getInstance().getReviewDao();
-    private final CreateReviewValidator createReviewValidator = ValidatorProvider.getInstance().getCreateReviewValidator();
-    private final CreateReviewMapper createReviewMapper = MapperProvider.getInstance().getCreateReviewMapper();
-    private final ReviewMapper reviewMapper = MapperProvider.getInstance().getReviewMapper();
+    private final ReviewDao reviewDAO;
+    private final CreateReviewValidator createReviewValidator;
+    private final CreateReviewMapper createReviewMapper;
+    private final ReviewMapper reviewMapper;
+
+    public ReviewServiceImpl() {
+        this(DaoProvider.getInstance().getReviewDao(),
+                ValidatorProvider.getInstance().getCreateReviewValidator(),
+                MapperProvider.getInstance().getCreateReviewMapper(),
+                MapperProvider.getInstance().getReviewMapper());
+    }
+
+    public ReviewServiceImpl(ReviewDao reviewDAO, CreateReviewValidator createReviewValidator, CreateReviewMapper createReviewMapper, ReviewMapper reviewMapper) {
+        this.reviewDAO = reviewDAO;
+        this.createReviewValidator = createReviewValidator;
+        this.createReviewMapper = createReviewMapper;
+        this.reviewMapper = reviewMapper;
+    }
 
     @Override
     public Long create(CreateReviewDto createReviewDTO) throws ServiceException, ValidationException {

@@ -35,8 +35,8 @@ public class PersonDaoImpl implements PersonDao {
             """;
 
     @Override
-    public boolean delete(Long id) throws DAOException {
-        return false;
+    public boolean delete(Long id) {
+        throw new UnsupportedOperationException("Not supported delete operation for PersonDao yet.");
     }
 
     @Override
@@ -58,8 +58,8 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
-    public void update(Person person) throws DAOException {
-
+    public void update(Person person) {
+        throw new UnsupportedOperationException("Not supported update operation for PersonDao yet.");
     }
 
     @Override

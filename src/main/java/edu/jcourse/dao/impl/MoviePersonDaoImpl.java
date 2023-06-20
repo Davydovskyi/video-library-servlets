@@ -32,8 +32,8 @@ public class MoviePersonDaoImpl implements MoviePersonDao {
             """;
 
     @Override
-    public boolean delete(Long id) throws DAOException {
-        return false;
+    public boolean delete(Long id) {
+        throw new UnsupportedOperationException("Not supported delete operation for MoviePerson yet.");
     }
 
     @Override
@@ -46,18 +46,18 @@ public class MoviePersonDaoImpl implements MoviePersonDao {
     }
 
     @Override
-    public void update(MoviePerson moviePerson) throws DAOException {
-
+    public void update(MoviePerson moviePerson) {
+        throw new UnsupportedOperationException("Not supported update operation for MoviePerson yet.");
     }
 
     @Override
-    public List<MoviePerson> findAll() throws DAOException {
-        return new ArrayList<>();
+    public List<MoviePerson> findAll() {
+        throw new UnsupportedOperationException("Not supported find all operation for MoviePerson yet.");
     }
 
     @Override
-    public Optional<MoviePerson> findById(Long id) throws DAOException {
-        return Optional.empty();
+    public Optional<MoviePerson> findById(Long id) {
+        throw new UnsupportedOperationException("Not supported find by id operation for MoviePerson yet.");
     }
 
     @Override

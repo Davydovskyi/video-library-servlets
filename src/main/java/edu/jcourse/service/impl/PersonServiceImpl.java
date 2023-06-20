@@ -21,10 +21,24 @@ import java.util.Optional;
 
 public class PersonServiceImpl implements PersonService {
 
-    private final PersonDao personDAO = DaoProvider.getInstance().getPersonDao();
-    private final CreatePersonValidator createPersonValidator = ValidatorProvider.getInstance().getCreatePersonValidator();
-    private final CreatePersonMapper createPersonMapper = MapperProvider.getInstance().getCreatePersonMapper();
-    private final PersonMapper personMapper = MapperProvider.getInstance().getPersonMapper();
+    private final PersonDao personDAO;
+    private final CreatePersonValidator createPersonValidator;
+    private final CreatePersonMapper createPersonMapper;
+    private final PersonMapper personMapper;
+
+    public PersonServiceImpl() {
+        this(DaoProvider.getInstance().getPersonDao(),
+                ValidatorProvider.getInstance().getCreatePersonValidator(),
+                MapperProvider.getInstance().getCreatePersonMapper(),
+                MapperProvider.getInstance().getPersonMapper());
+    }
+
+    public PersonServiceImpl(PersonDao personDAO, CreatePersonValidator createPersonValidator, CreatePersonMapper createPersonMapper, PersonMapper personMapper) {
+        this.personDAO = personDAO;
+        this.createPersonValidator = createPersonValidator;
+        this.createPersonMapper = createPersonMapper;
+        this.personMapper = personMapper;
+    }
 
     @Override
     public Person create(CreatePersonDto createPersonDTO) throws ServiceException, ValidationException {
@@ -37,7 +51,7 @@ public class PersonServiceImpl implements PersonService {
         try {
             return personDAO.save(person);
         } catch (DAOException e) {
-            throw new RuntimeException(e);
+            throw new ServiceException(e);
         }
     }
 
@@ -55,8 +69,8 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Optional<ReceivePersonDto> findById(Long id) throws ServiceException {
         try {
-            Optional<Person> person = personDAO.findById(id);
-            return person.map(personMapper::mapFrom);
+            return personDAO.findById(id)
+                    .map(personMapper::mapFrom);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

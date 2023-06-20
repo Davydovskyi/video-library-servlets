@@ -21,7 +21,7 @@ public class CreateUserValidator implements Validator<CreateUserDto> {
     public final UserDao userDAO;
 
     public CreateUserValidator() {
-        userDAO = DaoProvider.getInstance().getUserDao();
+        this(DaoProvider.getInstance().getUserDao());
     }
 
     public CreateUserValidator(UserDao userDAO) {

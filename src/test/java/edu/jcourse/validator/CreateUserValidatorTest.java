@@ -5,6 +5,8 @@ import edu.jcourse.dto.CreateUserDto;
 import edu.jcourse.entity.Gender;
 import edu.jcourse.entity.Role;
 import edu.jcourse.entity.User;
+import edu.jcourse.exception.DAOException;
+import edu.jcourse.exception.ServiceException;
 import edu.jcourse.util.CodeUtil;
 import edu.jcourse.validator.impl.CreateUserValidator;
 import jakarta.servlet.http.Part;
@@ -24,6 +26,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -92,6 +95,25 @@ class CreateUserValidatorTest {
 
         assertThat(actualResult.getErrors()).hasSize(1);
         assertThat(actualResult.getErrors().get(0).getCode()).isEqualTo(CodeUtil.EXIST_EMAIL_CODE);
+        verify(userDAO).findByEmail(createUserDTO.email());
+    }
+
+    @SneakyThrows
+    @Test
+    void shouldThrowServerExceptionIfDaoThrowsException() {
+        CreateUserDto createUserDTO = CreateUserDto.builder()
+                .name("name")
+                .birthDate("2014-01-01")
+                .email("email@example.com")
+                .password("password")
+                .gender(Gender.MALE.name())
+                .role(Role.USER.name())
+                .partImage(imagePart)
+                .build();
+
+        doThrow(DAOException.class).when(userDAO).findByEmail(any());
+
+        assertThrowsExactly(ServiceException.class, () -> createUserValidator.validate(createUserDTO));
         verify(userDAO).findByEmail(createUserDTO.email());
     }
 

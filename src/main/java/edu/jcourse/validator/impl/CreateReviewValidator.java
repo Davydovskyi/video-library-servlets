@@ -19,7 +19,7 @@ public class CreateReviewValidator implements Validator<CreateReviewDto> {
     private final ReviewDao reviewDAO;
 
     public CreateReviewValidator() {
-        reviewDAO = DaoProvider.getInstance().getReviewDao();
+        this(DaoProvider.getInstance().getReviewDao());
     }
 
     public CreateReviewValidator(ReviewDao reviewDAO) {

@@ -3,6 +3,8 @@ package edu.jcourse.validator;
 import edu.jcourse.dao.ReviewDao;
 import edu.jcourse.dto.CreateReviewDto;
 import edu.jcourse.entity.Review;
+import edu.jcourse.exception.DAOException;
+import edu.jcourse.exception.ServiceException;
 import edu.jcourse.util.CodeUtil;
 import edu.jcourse.validator.impl.CreateReviewValidator;
 import lombok.SneakyThrows;
@@ -19,6 +21,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -74,6 +77,22 @@ class CreateReviewValidatorTest {
 
         assertThat(actualResult.getErrors()).hasSize(1);
         assertThat(actualResult.getErrors().get(0).getCode()).isEqualTo(CodeUtil.EXIST_REVIEW_CODE);
+        verify(reviewDAO).findByUserIdAndMovieId(createReviewDTO.userId(), Long.parseLong(createReviewDTO.moveId()));
+    }
+
+    @SneakyThrows
+    @Test
+    void shouldThrowServiceExceptionIfDaoThrowsException() {
+        CreateReviewDto createReviewDTO = CreateReviewDto.builder()
+                .userId(1L)
+                .moveId("1")
+                .reviewText("test")
+                .rate("4")
+                .build();
+
+        doThrow(DAOException.class).when(reviewDAO).findByUserIdAndMovieId(any(), any());
+
+        assertThrowsExactly(ServiceException.class, () -> createReviewValidator.validate(createReviewDTO));
         verify(reviewDAO).findByUserIdAndMovieId(createReviewDTO.userId(), Long.parseLong(createReviewDTO.moveId()));
     }
 

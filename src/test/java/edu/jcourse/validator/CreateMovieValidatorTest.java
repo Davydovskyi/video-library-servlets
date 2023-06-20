@@ -6,6 +6,8 @@ import edu.jcourse.dto.CreateMoviePersonDto;
 import edu.jcourse.entity.Genre;
 import edu.jcourse.entity.Movie;
 import edu.jcourse.entity.PersonRole;
+import edu.jcourse.exception.DAOException;
+import edu.jcourse.exception.ServiceException;
 import edu.jcourse.util.CodeUtil;
 import edu.jcourse.validator.impl.CreateMovieValidator;
 import lombok.SneakyThrows;
@@ -20,6 +22,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -242,6 +245,28 @@ class CreateMovieValidatorTest {
         assertThat(actualResult.getErrors()).hasSize(1);
         assertThat(actualResult.getErrors().get(0).getCode()).isEqualTo(CodeUtil.EXIST_MOVIE_CODE);
 
+        verify(movieDAO).findByAllFields(
+                createMovieDTO.title(),
+                Integer.parseInt(createMovieDTO.releaseYear()),
+                createMovieDTO.country(),
+                Genre.valueOf(createMovieDTO.genre()));
+    }
+
+    @SneakyThrows
+    @Test
+    void shouldThrowServiceExceptionIfDaoThrowsException() {
+        CreateMovieDto createMovieDTO = CreateMovieDto.builder()
+                .title("Title")
+                .releaseYear("2020")
+                .country("USA")
+                .genre(Genre.ROMANCE.name())
+                .description("Description")
+                .moviePersons(buildCreatePersonDTOs())
+                .build();
+
+        doThrow(DAOException.class).when(movieDAO).findByAllFields(any(), any(), any(), any());
+
+        assertThrowsExactly(ServiceException.class, () -> createMovieValidator.validate(createMovieDTO));
         verify(movieDAO).findByAllFields(
                 createMovieDTO.title(),
                 Integer.parseInt(createMovieDTO.releaseYear()),

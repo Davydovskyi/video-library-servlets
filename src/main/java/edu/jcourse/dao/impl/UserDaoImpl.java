@@ -8,7 +8,6 @@ import edu.jcourse.exception.DAOException;
 import edu.jcourse.util.ConnectionBuilder;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,8 +43,8 @@ public class UserDaoImpl implements UserDao {
             """;
 
     @Override
-    public boolean delete(Long id) throws DAOException {
-        return false;
+    public boolean delete(Long id) {
+        throw new UnsupportedOperationException("Not supported delete operation for UserDAO yet.");
     }
 
     @Override
@@ -73,13 +72,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void update(User user) throws DAOException {
-
+    public void update(User user) {
+        throw new UnsupportedOperationException("Not supported update operation for UserDAO yet.");
     }
 
     @Override
-    public List<User> findAll() throws DAOException {
-        return new ArrayList<>();
+    public List<User> findAll() {
+        throw new UnsupportedOperationException("Not supported find all operation for UserDAO yet.");
     }
 
     @Override

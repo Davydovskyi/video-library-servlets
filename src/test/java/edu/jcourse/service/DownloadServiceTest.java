@@ -1,31 +1,48 @@
 package edu.jcourse.service;
 
 import edu.jcourse.dto.ReceiveMovieDto;
+import edu.jcourse.mapper.impl.CSVMovieMapper;
+import edu.jcourse.service.impl.DownloadServiceImpl;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class DownloadServiceTest {
 
-    private final DownloadService downloadService = ServiceProvider.getInstance().getDownloadService();
+    @Mock
+    private CSVMovieMapper csvMovieMapper;
+    @InjectMocks
+    private DownloadServiceImpl downloadService;
 
     @SneakyThrows
     @Test
     void testDownload() {
+        String string1 = "Title,2020,Action,US,Description";
+        String string2 = "Title2,2021,Action,US,Description";
+
+        when(csvMovieMapper.mapFrom(any())).thenReturn(string1).thenReturn(string2);
+
         List<ReceiveMovieDto> receiveMovieDtos = List.of(
                 buildReceiveMovieDto("Title", 2020),
-                buildReceiveMovieDto("Title2", 2021));
+                buildReceiveMovieDto("Title2", 2021)
+        );
 
         byte[] actualResult = downloadService.get(receiveMovieDtos).readAllBytes();
 
-        String stringBuilder = "Title(Action, 2020, US)" + "\n" +
-                               "Title2(Action, 2021, US)";
-        byte[] expectedResult = stringBuilder.getBytes();
+        byte[] expectedResult = (string1 + "\n" + string2).getBytes();
 
         assertThat(actualResult).isEqualTo(expectedResult);
+        verify(csvMovieMapper, times(2)).mapFrom(any());
     }
 
     @SneakyThrows
@@ -48,12 +65,11 @@ class DownloadServiceTest {
 
     private ReceiveMovieDto buildReceiveMovieDto(String title, int releaseYear) {
         return ReceiveMovieDto.builder()
-                .movieData("%s(%s, %d, %s)".formatted(
-                        title,
-                        "Action",
-                        releaseYear,
-                        "US"
-                ))
+                .title(title)
+                .releaseYear(releaseYear)
+                .genre("Action")
+                .country("US")
+                .description("Description")
                 .build();
     }
 }

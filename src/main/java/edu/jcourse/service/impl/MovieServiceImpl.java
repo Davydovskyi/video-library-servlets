@@ -31,11 +31,11 @@ public class MovieServiceImpl implements MovieService {
 
 
     public MovieServiceImpl() {
-        movieDAO = DaoProvider.getInstance().getMovieDao();
-        createMovieMapper = MapperProvider.getInstance().getCreateMovieMapper();
-        createMovieValidator = ValidatorProvider.getInstance().getCreateMovieValidator();
-        movieFilterValidation = ValidatorProvider.getInstance().getMovieFilterValidation();
-        movieMapper = MapperProvider.getInstance().getMovieMapper();
+        this(DaoProvider.getInstance().getMovieDao(),
+                MapperProvider.getInstance().getCreateMovieMapper(),
+                ValidatorProvider.getInstance().getCreateMovieValidator(),
+                ValidatorProvider.getInstance().getMovieFilterValidation(),
+                MapperProvider.getInstance().getMovieMapper());
     }
 
     public MovieServiceImpl(MovieDao movieDAO,

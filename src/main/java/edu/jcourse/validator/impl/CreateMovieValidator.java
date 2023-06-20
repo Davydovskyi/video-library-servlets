@@ -23,7 +23,7 @@ public class CreateMovieValidator implements Validator<CreateMovieDto> {
     private final MovieDao movieDAO;
 
     public CreateMovieValidator() {
-        movieDAO = DaoProvider.getInstance().getMovieDao();
+        this(DaoProvider.getInstance().getMovieDao());
     }
 
     public CreateMovieValidator(MovieDao movieDAO) {

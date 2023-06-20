@@ -25,11 +25,35 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
-    private final UserDao userDAO = DaoProvider.getInstance().getUserDao();
-    private final CreateUserValidator createUserValidator = ValidatorProvider.getInstance().getCreateUserValidator();
-    private final CreateUserMapper createUserMapper = MapperProvider.getInstance().getCreateUserMapper();
-    private final UserMapper userMapper = MapperProvider.getInstance().getUserMapper();
-    private final LoginValidator loginValidator = ValidatorProvider.getInstance().getLoginValidator();
+    private final UserDao userDAO;
+    private final CreateUserValidator createUserValidator;
+    private final CreateUserMapper createUserMapper;
+    private final UserMapper userMapper;
+    private final LoginValidator loginValidator;
+    private ImageService imageService;
+
+    public UserServiceImpl() {
+        this(null,
+                DaoProvider.getInstance().getUserDao(),
+                ValidatorProvider.getInstance().getCreateUserValidator(),
+                MapperProvider.getInstance().getCreateUserMapper(),
+                MapperProvider.getInstance().getUserMapper(),
+                ValidatorProvider.getInstance().getLoginValidator());
+    }
+
+    public UserServiceImpl(ImageServiceImpl imageService,
+                           UserDao userDAO,
+                           CreateUserValidator createUserValidator,
+                           CreateUserMapper createUserMapper,
+                           UserMapper userMapper,
+                           LoginValidator loginValidator) {
+        this.imageService = imageService;
+        this.userDAO = userDAO;
+        this.createUserValidator = createUserValidator;
+        this.createUserMapper = createUserMapper;
+        this.userMapper = userMapper;
+        this.loginValidator = loginValidator;
+    }
 
     @Override
     public Long create(CreateUserDto createUserDTO) throws ServiceException, ValidationException {
@@ -39,7 +63,8 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = createUserMapper.mapFrom(createUserDTO);
-        ImageService imageService = ServiceProvider.getInstance().getImageService();
+        imageService = Optional.ofNullable(imageService)
+                .orElse(ServiceProvider.getInstance().getImageService());
 
         try {
             imageService.upload(user.getImage(), createUserDTO.partImage().getInputStream());

@@ -44,8 +44,8 @@ public class ReviewDaoImpl implements ReviewDao {
             """;
 
     @Override
-    public boolean delete(Long id) throws DAOException {
-        return false;
+    public boolean delete(Long id) {
+        throw new UnsupportedOperationException("Not supported delete operation for ReviewDAO yet.");
     }
 
     @Override
@@ -69,18 +69,18 @@ public class ReviewDaoImpl implements ReviewDao {
     }
 
     @Override
-    public void update(Review review) throws DAOException {
-
+    public void update(Review review) {
+        throw new UnsupportedOperationException("Not supported update operation for ReviewDAO yet.");
     }
 
     @Override
-    public List<Review> findAll() throws DAOException {
-        return new ArrayList<>();
+    public List<Review> findAll() {
+        throw new UnsupportedOperationException("Not supported findAll operation for ReviewDAO yet.");
     }
 
     @Override
-    public Optional<Review> findById(Long id) throws DAOException {
-        return Optional.empty();
+    public Optional<Review> findById(Long id) {
+        throw new UnsupportedOperationException("Not supported findById operation for ReviewDAO yet.");
     }
 
     @Override

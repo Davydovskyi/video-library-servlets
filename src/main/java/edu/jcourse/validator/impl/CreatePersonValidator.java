@@ -20,7 +20,7 @@ public class CreatePersonValidator implements Validator<CreatePersonDto> {
     private final PersonDao personDAO;
 
     public CreatePersonValidator() {
-        personDAO = DaoProvider.getInstance().getPersonDao();
+        this(DaoProvider.getInstance().getPersonDao());
     }
 
     public CreatePersonValidator(PersonDao personDAO) {

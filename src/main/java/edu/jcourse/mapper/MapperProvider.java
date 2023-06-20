@@ -28,6 +28,8 @@ public class MapperProvider {
     private final CreateReviewMapper createReviewMapper;
     @Getter
     private final MovieReviewMapper movieReviewMapper;
+    @Getter
+    private final CSVMovieMapper csvMovieMapper;
 
 
     private MapperProvider() {
@@ -42,6 +44,7 @@ public class MapperProvider {
         reviewMapper = new ReviewMapper();
         createReviewMapper = new CreateReviewMapper();
         movieReviewMapper = new MovieReviewMapper();
+        csvMovieMapper = new CSVMovieMapper();
     }
 
     public static MapperProvider getInstance() {

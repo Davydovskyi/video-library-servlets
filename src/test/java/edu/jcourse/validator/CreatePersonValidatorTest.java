@@ -3,6 +3,8 @@ package edu.jcourse.validator;
 import edu.jcourse.dao.PersonDao;
 import edu.jcourse.dto.CreatePersonDto;
 import edu.jcourse.entity.Person;
+import edu.jcourse.exception.DAOException;
+import edu.jcourse.exception.ServiceException;
 import edu.jcourse.util.CodeUtil;
 import edu.jcourse.util.LocalDateFormatter;
 import edu.jcourse.validator.impl.CreatePersonValidator;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -60,6 +63,21 @@ class CreatePersonValidatorTest {
 
         assertThat(actualResult.getErrors()).hasSize(1);
         assertThat(actualResult.getErrors().get(0).getCode()).isEqualTo(CodeUtil.EXIST_PERSON_CODE);
+        verify(personDAO).findByNameAndBirthDate(createPersonDTO.name(), LocalDateFormatter.parse(createPersonDTO.birthDate()));
+    }
+
+    @SneakyThrows
+    @Test
+    void shouldThrowServiceExceptionIfDaoThrowsException() {
+        CreatePersonDto createPersonDTO = CreatePersonDto.builder()
+                .name("John")
+                .birthDate("2015-01-01")
+                .build();
+
+        doThrow(DAOException.class).when(personDAO).findByNameAndBirthDate(any(), any());
+
+        assertThrowsExactly(ServiceException.class, () -> createPersonValidator.validate(createPersonDTO));
+
         verify(personDAO).findByNameAndBirthDate(createPersonDTO.name(), LocalDateFormatter.parse(createPersonDTO.birthDate()));
     }
 
