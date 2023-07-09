@@ -40,13 +40,13 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Long create(CreateReviewDto createReviewDTO) throws ServiceException, ValidationException {
-        ValidationResult validationResult = createReviewValidator.validate(createReviewDTO);
+    public Long create(CreateReviewDto createReviewDto) throws ServiceException, ValidationException {
+        ValidationResult validationResult = createReviewValidator.validate(createReviewDto);
         if (!validationResult.isValid()) {
             throw new ValidationException(validationResult.getErrors());
         }
 
-        Review review = createReviewMapper.mapFrom(createReviewDTO);
+        Review review = createReviewMapper.mapFrom(createReviewDto);
         try {
             reviewDAO.save(review);
         } catch (DAOException e) {

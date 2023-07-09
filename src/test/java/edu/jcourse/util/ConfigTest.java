@@ -17,7 +17,7 @@ class ConfigTest {
                 Arguments.of("db.driver", "org.h2.Driver"),
                 Arguments.of("db.pool.size", "5"),
                 Arguments.of("db.limit", "1000"),
-                Arguments.of("image.base.url", "C:/DevTools/temp/")
+                Arguments.of("image.base.url", "./src/test")
         );
     }
 

@@ -96,7 +96,7 @@ public abstract class IntegrationTestBase {
                     movie_country,
                     movie_genre,
                     movie_description)
-                    VALUES ('Movie1', 1990, 'US', 'ACTION', 'Description');
+                    VALUES ('Title', 1990, 'US', 'ACTION', 'Description');
             """;
     private static final String INSERT_USER_SQL = """
             INSERT INTO users (user_name,
