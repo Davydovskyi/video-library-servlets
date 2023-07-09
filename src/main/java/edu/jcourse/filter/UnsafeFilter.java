@@ -18,7 +18,7 @@ public class UnsafeFilter implements Filter {
         if (user == null) {
             ((HttpServletResponse) servletResponse).sendRedirect(UrlPath.LOGIN);
         } else if (user.role() == Role.USER) {
-            String previousPage = ((HttpServletResponse) servletResponse).getHeader("referer");
+            String previousPage = ((HttpServletRequest) servletRequest).getHeader("referer");
             ((HttpServletResponse) servletResponse).sendRedirect(previousPage != null ? previousPage : UrlPath.MOVIES);
         } else {
             filterChain.doFilter(servletRequest, servletResponse);
