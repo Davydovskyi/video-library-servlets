@@ -23,7 +23,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @WebServlet(urlPatterns = UrlPath.ADMIN)
 public class AdminServlet extends HttpServlet {
 
-    private final transient PersonService personService = ServiceProvider.getInstance().getPersonService();
+    private final transient PersonService personService;
+
+    public AdminServlet() {
+        this(ServiceProvider.getInstance().getPersonService());
+    }
+
+    public AdminServlet(PersonService personService) {
+        super();
+        this.personService = personService;
+    }
 
     @Override
     public void init(ServletConfig config) throws ServletException {

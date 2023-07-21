@@ -21,7 +21,16 @@ import java.util.Set;
 @WebServlet(urlPatterns = UrlPath.ADD_MOVIE)
 public class CreateMovieServlet extends HttpServlet {
 
-    private final transient MovieService movieService = ServiceProvider.getInstance().getMovieService();
+    private final transient MovieService movieService;
+
+    public CreateMovieServlet() {
+        this(ServiceProvider.getInstance().getMovieService());
+    }
+
+    public CreateMovieServlet(MovieService movieService) {
+        super();
+        this.movieService = movieService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,11 +39,11 @@ public class CreateMovieServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Set<CreateMoviePersonDto> moviePersons = new HashSet<>();
+        Set<CreateMoviePersonDto> moviePeople = new HashSet<>();
         for (int i = 1; i <= 4; i++) {
             String personId = req.getParameter("member" + i);
             if (personId != null) {
-                moviePersons.add(
+                moviePeople.add(
                         CreateMoviePersonDto.builder()
                                 .personId(personId)
                                 .personRole(req.getParameter("movie_role" + i))
@@ -43,14 +52,7 @@ public class CreateMovieServlet extends HttpServlet {
             }
         }
 
-        CreateMovieDto createMovieDTO = CreateMovieDto.builder()
-                .title(req.getParameter("title"))
-                .releaseYear(req.getParameter("release_year"))
-                .country(req.getParameter("country"))
-                .genre(req.getParameter("genre"))
-                .description(req.getParameter("description"))
-                .moviePersons(moviePersons)
-                .build();
+        CreateMovieDto createMovieDTO = buildCreateMovieDto(req, moviePeople);
 
         try {
             movieService.create(createMovieDTO);
@@ -62,5 +64,16 @@ public class CreateMovieServlet extends HttpServlet {
         }
         req.setAttribute("show_add_movie", "yes");
         req.getRequestDispatcher(UrlPath.ADMIN).forward(req, resp);
+    }
+
+    private CreateMovieDto buildCreateMovieDto(HttpServletRequest req, Set<CreateMoviePersonDto> moviePeople) {
+        return CreateMovieDto.builder()
+                .title(req.getParameter("title"))
+                .releaseYear(req.getParameter("release_year"))
+                .country(req.getParameter("country"))
+                .genre(req.getParameter("genre"))
+                .description(req.getParameter("description"))
+                .moviePersons(moviePeople)
+                .build();
     }
 }

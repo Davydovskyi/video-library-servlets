@@ -143,6 +143,10 @@
                         <exclude>edu/jcourse/entity/*</exclude>
                         <exclude>edu/jcourse/exception/*</exclude>
                         <exclude>edu/jcourse/validator/Error.class</exclude>
+                        <exclude>edu/jcourse/util/CodeUtil.class</exclude>
+                        <exclude>edu/jcourse/util/UrlPath.class</exclude>
+                        <exclude>edu/jcourse/util/MessageUtil.class</exclude>
+                        <exclude>edu/jcourse/util/RegexUtil.class</exclude>
                     </excludes>
                 </configuration>
                 <executions>

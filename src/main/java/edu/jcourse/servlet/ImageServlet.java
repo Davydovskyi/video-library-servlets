@@ -17,12 +17,19 @@ import java.io.InputStream;
 @WebServlet(urlPatterns = UrlPath.IMAGES + "/*")
 public class ImageServlet extends HttpServlet {
 
-    private final transient ImageService imageService = ServiceProvider.getInstance().getImageService();
+    private final transient ImageService imageService;
+
+    public ImageServlet() {
+        this(ServiceProvider.getInstance().getImageService());
+    }
+
+    public ImageServlet(ImageService imageService) {
+        this.imageService = imageService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String imagePath = req.getRequestURI().replace("/images", "");
-
         try {
             imageService.get(imagePath)
                     .ifPresentOrElse(inputStream -> {

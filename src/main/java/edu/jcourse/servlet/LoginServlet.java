@@ -21,7 +21,15 @@ import java.io.IOException;
 @WebServlet(urlPatterns = UrlPath.LOGIN)
 public class LoginServlet extends HttpServlet {
 
-    private final transient UserService userService = ServiceProvider.getInstance().getUserService();
+    private final transient UserService userService;
+
+    public LoginServlet() {
+        this(ServiceProvider.getInstance().getUserService());
+    }
+
+    public LoginServlet(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

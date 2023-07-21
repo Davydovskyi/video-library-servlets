@@ -18,7 +18,16 @@ import java.io.IOException;
 @WebServlet(urlPatterns = UrlPath.ADD_REVIEW + "/*")
 public class CreateReviewServlet extends HttpServlet {
 
-    private final transient ReviewService reviewService = ServiceProvider.getInstance().getReviewService();
+    private final transient ReviewService reviewService;
+
+    public CreateReviewServlet() {
+        this(ServiceProvider.getInstance().getReviewService());
+    }
+
+    public CreateReviewServlet(ReviewService reviewService) {
+        super();
+        this.reviewService = reviewService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

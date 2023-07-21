@@ -24,8 +24,20 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @WebServlet(urlPatterns = UrlPath.ADD_PERSON)
 public class CreatePersonServlet extends HttpServlet {
 
-    private final transient PersonService personService = ServiceProvider.getInstance().getPersonService();
-    private final transient PersonMapper personMapper = MapperProvider.getInstance().getPersonMapper();
+    private final transient PersonService personService;
+    private final transient PersonMapper personMapper;
+
+    public CreatePersonServlet() {
+        this(ServiceProvider.getInstance().getPersonService(),
+                MapperProvider.getInstance().getPersonMapper());
+    }
+
+    public CreatePersonServlet(PersonService personService, PersonMapper personMapper) {
+        super();
+        this.personService = personService;
+        this.personMapper = personMapper;
+    }
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,7 +54,7 @@ public class CreatePersonServlet extends HttpServlet {
         try {
             Person person = personService.create(createPersonDTO);
             req.setAttribute("success", CodeUtil.SUCCESS_ADD_CODE);
-            CopyOnWriteArrayList<ReceivePersonDto> members = (CopyOnWriteArrayList<ReceivePersonDto>) getServletContext().getAttribute("filmMembers");
+            CopyOnWriteArrayList<ReceivePersonDto> members = (CopyOnWriteArrayList<ReceivePersonDto>) req.getServletContext().getAttribute("filmMembers");
             members.add(personMapper.mapFrom(person));
             members.sort(Comparator.comparing(ReceivePersonDto::personData));
         } catch (ServiceException e) {

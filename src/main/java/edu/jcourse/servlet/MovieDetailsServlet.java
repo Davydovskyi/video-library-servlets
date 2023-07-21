@@ -21,7 +21,15 @@ import java.util.Optional;
 @WebServlet(urlPatterns = UrlPath.MOVIE + "/*")
 public class MovieDetailsServlet extends HttpServlet {
 
-    private final transient MovieService movieService = ServiceProvider.getInstance().getMovieService();
+    private final transient MovieService movieService;
+
+    public MovieDetailsServlet() {
+        this(ServiceProvider.getInstance().getMovieService());
+    }
+
+    public MovieDetailsServlet(MovieService movieService) {
+        this.movieService = movieService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -18,7 +18,16 @@ import java.util.List;
 @WebServlet(urlPatterns = UrlPath.DOWNLOAD + "/*")
 public class DownloadServlet extends HttpServlet {
 
-    private final transient DownloadService downloadService = ServiceProvider.getInstance().getDownloadService();
+    private final transient DownloadService downloadService;
+
+    public DownloadServlet() {
+        this(ServiceProvider.getInstance().getDownloadService());
+    }
+
+    public DownloadServlet(DownloadService downloadService) {
+        this.downloadService = downloadService;
+    }
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -22,8 +22,18 @@ import java.util.Optional;
 @WebServlet(urlPatterns = UrlPath.PERSON + "/*")
 public class PersonServlet extends HttpServlet {
 
-    private final transient PersonService personService = ServiceProvider.getInstance().getPersonService();
-    private final transient MovieService movieService = ServiceProvider.getInstance().getMovieService();
+    private final transient PersonService personService;
+    private final transient MovieService movieService;
+
+    public PersonServlet() {
+        this(ServiceProvider.getInstance().getPersonService(),
+                ServiceProvider.getInstance().getMovieService());
+    }
+
+    public PersonServlet(PersonService personService, MovieService movieService) {
+        this.personService = personService;
+        this.movieService = movieService;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +41,7 @@ public class PersonServlet extends HttpServlet {
         try {
             Optional<ReceivePersonDto> personDTO = personService.findById(personId);
             personDTO.ifPresentOrElse(person ->
-                            personExists(person, req),
+                            findMovies(person, req),
                     () -> resp.setStatus(404));
             req.getRequestDispatcher(JSPHelper.getPath("person")).
                     forward(req, resp);
@@ -41,7 +51,7 @@ public class PersonServlet extends HttpServlet {
     }
 
     @SneakyThrows
-    private void personExists(ReceivePersonDto personDTO, HttpServletRequest req) {
+    private void findMovies(ReceivePersonDto personDTO, HttpServletRequest req) {
         req.setAttribute("person", personDTO);
         List<ReceiveMovieDto> movies = movieService.findByPersonId(personDTO.id());
         req.setAttribute("movies", movies);
