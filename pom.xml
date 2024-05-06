@@ -11,38 +11,51 @@
     <packaging>war</packaging>
 
     <properties>
-        <maven.compiler.source>19</maven.compiler.source>
-        <maven.compiler.target>19</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <jakarta.servlet.version>6.0.0</jakarta.servlet.version>
+        <jakarta.jstl.version>3.0.0</jakarta.jstl.version>
+        <postgres.version>42.7.3</postgres.version>
+
+        <lombok.version>1.18.32</lombok.version>
+
         <junit5.version>5.9.3</junit5.version>
         <mockito.version>5.3.1</mockito.version>
+        <assertj.version>3.25.3</assertj.version>
+        <h2.db.version>2.2.224</h2.db.version>
+        <flyway.url>jdbc:postgresql://localhost:5432/video_library</flyway.url>
+        <flyway.locations>filesystem:src/main/resources/db/migration</flyway.locations>
+        <flyway.user>postgres</flyway.user>
+        <flyway.password>postgres</flyway.password>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.0.0</version>
+            <version>${jakarta.servlet.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.5.4</version>
+            <version>${postgres.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.26</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-            <version>3.0.0</version>
+            <version>${jakarta.jstl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
@@ -53,7 +66,7 @@
                     <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
                 </exclusion>
             </exclusions>
-            <version>3.0.0</version>
+            <version>${jakarta.jstl.version}</version>
         </dependency>
 
         <dependency>
@@ -71,7 +84,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.24.2</version>
+            <version>${assertj.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
@@ -89,13 +102,24 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>2.1.214</version>
+            <version>${h2.db.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>10.12.0</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>10.12.0</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-wrapper-plugin</artifactId>
