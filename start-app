@@ -1,0 +1,10 @@
+#!/bin/bash
+
+./mvnw clean install -Dmaven.test.skip=true
+docker build -t video-library-tomcat .
+docker network create video-library-network
+docker run --rm -d --net=video-library-network --name video-library-postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=video_library postgres:16.2
+docker run --rm -d --net=video-library-network --name video-library-tomcat -p 8080:8080 -e db.url=jdbc:postgresql://video-library-postgres:5432/video_library video-library-tomcat
+./mvnw flyway:migrate
+start http://localhost:8080
+#open http://localhost:8080
