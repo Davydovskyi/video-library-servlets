@@ -1,5 +1,6 @@
 package edu.jcourse.util;
 
+import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 
@@ -17,6 +18,7 @@ public class ConnectionBuilder {
     private static final int DEFAULT_POOL_SIZE = 10;
     private static List<Connection> sourcePool;
     private static BlockingQueue<Connection> pool;
+    @Getter
     private static boolean poolOpened;
 
     static {
@@ -67,9 +69,5 @@ public class ConnectionBuilder {
             connection.close();
         }
         poolOpened = false;
-    }
-
-    public static boolean isPoolOpened() {
-        return poolOpened;
     }
 }

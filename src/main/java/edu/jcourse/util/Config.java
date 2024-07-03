@@ -20,12 +20,12 @@ public class Config {
     @SneakyThrows
     public static String getProperty(String name) {
         if (!PROPERTIES.isEmpty()) {
-            return PROPERTIES.getProperty(name);
+            return System.getenv().getOrDefault(name, PROPERTIES.getProperty(name));
         }
 
         try (InputStream resource = Config.class.getClassLoader().getResourceAsStream("application.properties")) {
             PROPERTIES.load(resource);
         }
-        return PROPERTIES.getProperty(name);
+        return System.getenv().getOrDefault(name, PROPERTIES.getProperty(name));
     }
 }
